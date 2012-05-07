@@ -1,0 +1,154 @@
+<html>
+<head>
+
+<!--
+Interactive Antibiogram
+Jonathan H. Chen
+jonc101 at gmail.com
+jonc101 at stanford.edu
+2012
+
+/**
+ * Copyright 2012, Jonathan H. Chen (jonc101 at gmail.com / jonc101 at stanford.edu)
+ *
+ * See linked data file for additional data source references
+ *
+ */
+-->
+
+<link rel="stylesheet" type="text/css" href="antibiogramStyles.css">
+
+<SCRIPT LANGUAGE="JavaScript" SRC="../lib/toolkit.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="../lib/Color.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" SRC="antibiogramData.js"></SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript" SRC="antibiogramControls.js"></SCRIPT>
+
+</head>
+<body onLoad="initialize(document.forms[0]);">
+
+<form name="analysisForm" onSubmit="return false;">
+    <input type=hidden name="summary" value="">
+
+    <div align=center>
+
+    <input type=button onClick="loadSensitivityData(this.form.dataLoad, 'Stanford2011', false)" value="Load Stanford 2011
+Antibiogram Data">
+    <input type=button onClick="loadSensitivityData(this.form.dataLoad, 'PAVA2011', false)" value="Load Palo Alto VA 2011
+Antibiogram Data">
+    <input type=button onClick="loadSensitivityData(this.form.dataLoad )" value="Reset to Default (Sanford)
+Sensitivity Data">
+
+
+
+    <table border=1>
+        <tr>
+            <th colspan=3 class="headerRow">Organism</th>
+            <th colspan=3 class="headerRow">Antimicrobial</th>
+        </tr>
+        <tr>
+            <td colspan=3 align=center>
+                <table border=0 width=100%>
+                    <tr valign=top>
+                        <td>
+                            <script language="JavaScript">
+                            for( var i=0; i < BUG_PROPERTY_LIST.length/2; i++ )
+                            {
+                                var bugProp = BUG_PROPERTY_LIST[i];
+                                document.writeln('<input type=checkbox name="bugProp" onClick="updateBugList(this.form)" value="'+bugProp+'"><a href="javascript:toggleBugProp(\''+bugProp+'\')">'+bugProp+'</a><br>');
+                            }
+                            </script>
+                        </td>
+                        <td>
+                            <script language="JavaScript">
+                            for( var i=Math.ceil(BUG_PROPERTY_LIST.length/2); i < BUG_PROPERTY_LIST.length; i++ )
+                            {
+                                var bugProp = BUG_PROPERTY_LIST[i];
+                                document.writeln('<input type=checkbox name="bugProp" onClick="updateBugList(this.form)" value="'+bugProp+'"><a href="javascript:toggleBugProp(\''+bugProp+'\')">'+bugProp+'</a><br>');
+                            }
+                            </script>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan=3>
+                <table border=0 width=100%>
+                    <tr valign=top>
+                        <td>
+                            <script language="JavaScript">
+                            for( var i=0; i < DRUG_CLASS_LIST.length/2; i++ )
+                            {
+                                var drugProp = DRUG_CLASS_LIST[i];
+                                document.writeln('<input type=checkbox name="drugProp" onClick="updateDrugList(this.form)" value="'+drugProp+'"><a href="javascript:toggleDrugProp(\''+drugProp+'\')">'+drugProp+'</a><br>');
+                            }
+                            </script>
+                        </td>
+                        <td>
+                            <script language="JavaScript">
+                            for( var i=Math.ceil(DRUG_CLASS_LIST.length/2); i < DRUG_CLASS_LIST.length; i++ )
+                            {
+                                var drugProp = DRUG_CLASS_LIST[i];
+                                document.writeln('<input type=checkbox name="drugProp" onClick="updateDrugList(this.form)" value="'+drugProp+'"><a href="javascript:toggleDrugProp(\''+drugProp+'\')">'+drugProp+'</a><br>');
+                            }
+                            </script>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].bugAvailable, true)">Available</a></td>
+            <td class="headerCol">&nbsp;</td>
+            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].bugSelected, true)">Selected</a> <a href="javascript:clearSelectedBugs();">(Clear)</a></td>
+
+            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].drugAvailable, true)">Available</a></td>
+            <td class="headerCol">&nbsp;</td>
+            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].drugSelected, true)">Selected</a> <a href="javascript:clearSelectedDrugs();">(Clear)</a></td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>
+                <select name="bugAvailable" multiple size=10 style="width: 250;">
+                </select>
+            </td>
+            <td align=center>
+                <input type=button value="(+)" class="iconButton" onClick="selectMoveCopy( this.form.bugAvailable, this.form.bugSelected, true )">
+                <br><br>
+                <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.bugSelected, null, false )">
+            </td>
+            <td align=center>
+                <select name="bugSelected" multiple size=10 style="width: 250;">
+                </select>
+            </td>
+
+            <td align=center>
+                <select name="drugAvailable" multiple size=10 style="width: 250;">
+                </select>
+            </td>
+            <td align=center>
+                <input type=button value="(+)" class="iconButton" onClick="selectMoveCopy( this.form.drugAvailable, this.form.drugSelected, true )">
+                <br><br>
+                <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.drugSelected, null, false )">
+            </td>
+            <td align=center>
+                <select name="drugSelected" multiple size=10 style="width: 250;">
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <input type=submit value="Reset" onClick="initialize(this.form);" tabindex=500 style="font-size: 16pt;">
+    <input type=submit value="Analysis" onClick="doAnalysis(this.form);" tabindex=500 style="font-size: 16pt;">
+
+    <div id="sensitivityTableSpace">
+    </div>
+
+    <textarea name="feedback" rows=10 style="width: 100%;" wrap="off"></textarea>
+
+    <textarea name="dataLoad" rows=10 cols=80 wrap="off"></textarea>
+    <br>
+    <input type=button onClick="submitSensitivityData(this.form.dataLoad);" value="Add Custom Sensitivity Data">
+
+    </div>
+</form>
+</body>
+</html>

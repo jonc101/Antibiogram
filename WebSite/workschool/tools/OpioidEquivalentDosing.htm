@@ -1,0 +1,394 @@
+<html>
+<head>
+<!--
+Opioid Equivalent Dosing
+Jonathan H. Chen
+jonc101 at gmail.com
+2011
+-->
+
+<script language="JavaScript">
+/**
+ * Initialize equivalence tables
+ */
+var AGENT_NAMES = new Array('morphine','hydromorphone','meperidine','hydrocodone','oxycodone','fentanyl');
+
+// PO morphine reference value to base equivalencies against
+var MORPHINE_REFERENCE = 30;
+
+var PO_EQUIVALENCE = new Array();
+PO_EQUIVALENCE['morphine'] = 30;
+PO_EQUIVALENCE['hydromorphone'] = 7.5;
+PO_EQUIVALENCE['meperidine'] = 300;
+PO_EQUIVALENCE['hydrocodone'] = 30;
+PO_EQUIVALENCE['oxycodone'] = 20;
+
+var IV_EQUIVALENCE = new Array();
+IV_EQUIVALENCE['morphine'] = 10;
+IV_EQUIVALENCE['hydromorphone'] = 1.5;
+IV_EQUIVALENCE['meperidine'] = 75;
+IV_EQUIVALENCE['fentanyl'] = 100; // ???
+
+// Special sliding scales for fentanyl patch and methadone
+var FENTANYL_PATCH_EQUIVALENCE = new Array();
+FENTANYL_PATCH_EQUIVALENCE[0] = 0;
+FENTANYL_PATCH_EQUIVALENCE[25] = 50;
+FENTANYL_PATCH_EQUIVALENCE[50] = 150;
+FENTANYL_PATCH_EQUIVALENCE[75] = 250;
+FENTANYL_PATCH_EQUIVALENCE[100] = 350;
+
+var MORPHINE_DOSE_TIER = new Array(       30, 100, 500, 1000, 9999999);
+var MORPHINE_METHADONE_RATIO = new Array(  2,   4,   8,   15,      20);
+
+/**
+ * Top level function to analyze the situation
+ */
+function doAnalysis(theForm)
+{
+    reset();    // Reset the feedback field to blank
+
+    // Add up total morphine equivalent dosing (MED) as go
+    var totalMED = 0;
+    for( var i=0; i < AGENT_NAMES.length; i++ )
+    {
+        var agent = AGENT_NAMES[i];
+
+        // Check for PO options
+        if ( PO_EQUIVALENCE[agent] )
+        {   // Parse out the dose and amount used for the agent
+            var dose = parseFloat(theForm.elements[agent+'-PO-dose'].value);
+            var count = parseFloat(theForm.elements[agent+'-PO-count'].value);
+            var totalDose = dose * count;
+            var morphineRatio = MORPHINE_REFERENCE / PO_EQUIVALENCE[agent];
+            var med = totalDose * morphineRatio;
+
+            if ( med > 0 )
+            {
+                println( Math.round(med)+' MED ('+agent+' '+dose+'x'+count+' = '+totalDose+' x ('+MORPHINE_REFERENCE+' morphine PO / '+PO_EQUIVALENCE[agent]+' '+agent+' PO) ) ');
+            }
+            totalMED = totalMED + med;
+        }
+
+        // Check for IV options
+        if ( IV_EQUIVALENCE[agent] )
+        {   // Parse out the dose and amount used for the agent
+            var dose = parseFloat(theForm.elements[agent+'-IV-dose'].value);
+            var count = parseFloat(theForm.elements[agent+'-IV-count'].value);
+            var totalDose = dose * count;
+            var morphineRatio = MORPHINE_REFERENCE / IV_EQUIVALENCE[agent];
+            var med = totalDose * morphineRatio;
+
+            if ( med > 0 )
+            {
+                println( Math.round(med)+' MED ('+agent+' '+dose+'x'+count+' = '+totalDose+' x ('+MORPHINE_REFERENCE+' morphine PO / '+IV_EQUIVALENCE[agent]+' '+agent+' IV) ) ');
+            }
+            totalMED = totalMED + med;
+        }
+    }
+
+    // Sliding scale handling for fentanyl patch
+    var patchField = theForm.elements['fentanyl-Patch-dose'];
+    var patchDose = parseInt(patchField.options[patchField.selectedIndex].text);
+    var med = FENTANYL_PATCH_EQUIVALENCE[patchDose];
+    if ( med > 0 )
+    {
+        println( Math.round(med)+' MED (fentanyl patch '+patchDose+'mcg/hr) ');
+    }
+    totalMED = totalMED + med;
+
+    // Sliding scale ratios for methadone
+    var agent = 'methadone';
+    var dose = parseFloat(theForm.elements[agent+'-PO-dose'].value);
+    var count = parseFloat(theForm.elements[agent+'-PO-count'].value);
+    var totalDose = dose * count;
+    var med = methadoneEquivalance( dose*count );
+
+    totalMED = totalMED + med;
+
+    summaryPoint('Total Morphine PO mg Equivalents: '+ Math.round(totalMED) );
+
+    // Highlight the primary summary points
+    theForm.feedback.value = theForm.summary.value +'\n'+ theForm.feedback.value;
+}
+
+/**
+ * Special handling for methadone sliding scale ratio conversion to morphine
+ */
+function methadoneEquivalance( methadoneTotalDose )
+{   // Iterate through the tiers of dosing to see where this total dose lies
+    for( var i=0; i < MORPHINE_DOSE_TIER.length; i++ )
+    {
+        var morphineTier = MORPHINE_DOSE_TIER[i];
+        var morphMethRatio = MORPHINE_METHADONE_RATIO[i];
+        var methadoneTier = morphineTier / morphMethRatio;
+
+        if ( methadoneTotalDose < methadoneTier )
+        {   // Found the tier, return the converted result
+            var med = methadoneTotalDose * morphMethRatio;
+            if ( med > 0 )
+            {
+                println( Math.round(med)+' MED (methadone '+methadoneTotalDose+' x '+morphMethRatio+':1 morphine:methadone tier) ');
+            }
+            return med;
+        }
+    }
+    alert('ERROR: Unable to find methadone tier');
+}
+
+
+/**
+ * Convenience function for printing out messages to the feedback element.
+ *  Include indentation depth option
+ */
+function print( message, depth )
+{
+    var theForm = document.forms[0];
+    var feedbackField = theForm.feedback;
+
+    depth = parseInt(depth);
+    if (depth)
+    {
+        for( var i=0; i < depth; i++ )
+        {
+            feedbackField.value += '   ';
+        }
+    }
+    feedbackField.value += message;
+}
+function println( message, depth )
+{
+    print( message +'\n', depth );
+}
+function summaryPoint( message )
+{
+    var theForm = document.forms[0];
+    theForm.summary.value += '= '+message+' ='+'\n';
+}
+
+function reset()
+{
+    var theForm = document.forms[0];
+    theForm.feedback.value = '';
+    theForm.summary.value = '';
+}
+
+</script>
+
+
+<style>
+BODY, TD, P, TH
+{
+  font-family: Arial,Verdana,Helvetica,sans-serif;
+  font-size: 16pt;
+}
+
+.label
+{
+  font-size: 40pt;
+}
+
+
+PRE
+{
+   font-family: Lucida Console,monospace;
+   font-size: 40pt;
+}
+
+input
+{
+    /*border: solid black 1px;*/
+    font-family: Arial, Verdana, Helvetica, sans-serif;
+    font-size: 40pt;
+}
+
+textarea
+{
+    /*border: solid black 1px;*/
+    font-family: Arial, Verdana, Helvetica, sans-serif;
+    font-size: 24pt;
+}
+
+select
+{
+    /*border: solid black 1px;*/
+    font-family: Arial, Verdana, Helvetica, sans-serif;
+    font-size: 40pt;
+}
+
+</style>
+
+</head>
+<body>
+
+<div align="center" class="label">Opiate Equivalent Dosing</div>
+
+<form name="analysisForm" onSubmit="return false;">
+    <input type=hidden name="summary" value="">
+
+    <div align=center>
+    <table border=1>
+        <tr>
+            <th>Substance</th><th>PO / Patch</th><th>IV</th>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Morphine</td>
+            <td>
+                <input type=text name="morphine-PO-dose" value="30" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="morphine-PO-count" value="0" size=1>
+            </td>
+            <td>
+                <input type=text name="morphine-IV-dose" value="10" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="morphine-IV-count" value="0" size=1>
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Hydromorphone<br>(Dilaudid)</td>
+            <td>
+                <input type=text name="hydromorphone-PO-dose" value="7.5" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="hydromorphone-PO-count" value="0" size=1>
+            </td>
+            <td>
+                <input type=text name="hydromorphone-IV-dose" value="1.5" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="hydromorphone-IV-count" value="0" size=1>
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Meperidine<br>(Demerol)</td>
+            <td>
+                <input type=text name="meperidine-PO-dose" value="300" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="meperidine-PO-count" value="0" size=1>
+            </td>
+            <td>
+                <input type=text name="meperidine-IV-dose" value="75" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="meperidine-IV-count" value="0" size=1>
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Fentanyl</td>
+            <td align=center>
+                <select name="fentanyl-Patch-dose" style="text-align: right;">
+                    <option>0</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>75</option>
+                    <option>100</option>
+                </select>
+                mcg / hr (Patch)
+            </td>
+            <td>
+                <input type=text name="fentanyl-IV-dose" value="100" size=1 style="text-align: right;">
+                mcg x
+                <input type=text name="fentanyl-IV-count" value="0" size=1>
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Hydrocodone<br>(Vicodin)</td>
+            <td>
+                <input type=text name="hydrocodone-PO-dose" value="30" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="hydrocodone-PO-count" value="0" size=1>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Oxycodone<br>(Percocet/Norco)</td>
+            <td>
+                <input type=text name="oxycodone-PO-dose" value="20" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="oxycodone-PO-count" value="0" size=1>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr valign=middle>
+            <td align=center>Methadone</td>
+            <td>
+                <input type=text name="methadone-PO-dose" value="7.5" size=1 style="text-align: right;">
+                mg x
+                <input type=text name="methadone-PO-count" value="0" size=1>
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+
+    <input type=submit value="Calculate MED" onClick="doAnalysis(this.form);" tabindex=500>
+
+    <textarea name="feedback" rows=10 style="width: 100%;" wrap="off"></textarea>
+
+    <table>
+        <tr valign=top>
+           <td align=center>
+                Methadone (dose BID or TID)
+                <br>
+                Sliding Scale Conversion Ratios
+                <table border=1>
+                    <tr>
+                        <th>Morphine (PO mg)</th>
+                        <th>Morphine : Methadone</th>
+                    </tr>
+                    <tr>
+                        <td align=center>&lt;30</td>
+                        <td align=center>2:1</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&lt;100</td>
+                        <td align=center>4:1</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&lt;300</td>
+                        <td align=center>8:1</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&lt;500</td>
+                        <td align=center>12:1</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&lt;1000</td>
+                        <td align=center>15:1</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&gt;1000</td>
+                        <td align=center>20:1</td>
+                    </tr>
+                </table>
+            </td>
+           <td align=center>
+                Fentanyl Parenteral (Patch)
+                <br>
+                Sliding Scale Conversion
+                <table border=1>
+                    <tr>
+                        <th>Fentanyl (mcg/hr x 24hr)</th>
+                        <th>Morphine (PO mg)</th>
+                    </tr>
+                    <tr>
+                        <td align=center>25</td>
+                        <td align=center>50</td>
+                    </tr>
+                    <tr>
+                        <td align=center>75</td>
+                        <td align=center>250</td>
+                    </tr>
+                    <tr>
+                        <td align=center>100</td>
+                        <td align=center>350</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    </div>
+</form>
+</body>
+</html>
