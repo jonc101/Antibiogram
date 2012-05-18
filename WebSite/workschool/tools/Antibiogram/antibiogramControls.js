@@ -465,19 +465,19 @@ function generateSensitivityTableHTML(theForm)
  */
 function formatHeader(inText)
 {
-    //return '<div class="rotateText">'+inText.replace('/',' / ')+'</div>';
     inText = inText.replace('/',' / ');
 
     return inText;
 
-    /*
+    // return '<div class="rotateText">'+inText+'</div>';
+
     var outText = new Array();
     for( var i=0; i < inText.length; i++ )
     {
         outText.push(inText.charAt(i));
     }
-    return outText.join('\n');
-    */
+    return outText.join('<br>\n');
+
 }
 
 /**
