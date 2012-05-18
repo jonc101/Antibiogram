@@ -274,9 +274,17 @@ function printSensitivityTable(theForm)
  *      and 2nd column for "All Drugs"
  * - Each row for one bug, plus add 1st column for "All Bugs"
  *
+ * Return as a 3-ple array,
+ *  1st element being core data table
+ *  2nd element being list of column headers
+ *  3rd element being list of row headers
  */
 function generateSensitivityDataTable(theForm)
 {
+    var returnData = new Array(3);  // 3-ple of return data elements
+    var colHeaders = new Array();
+    var rowHeaders = new Array();
+
     var dataTable = new Array();    // 2D Table = Array of Arrays
     var dataRow; // Next row to add to table
 
@@ -342,43 +350,36 @@ function generateSensitivityDataTable(theForm)
     }
 
     // With the aggregate data now available, now iterate again to actually construct the data table
-    // First add a drug name header row
-    dataRow = new Array();
-    dataTable.push(dataRow);
-    dataRow.push('Microbe');
-    dataRow.push('Isolates Tested');
-    dataRow.push('ALL DRUGS');
-    for( var j=0; j < drugListField.options.length; j++ )
-    {
-        var drug = drugListField.options[j].value;
-        if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
-        dataRow.push(drug);
-    }
+    // First add a drug name header row and a row for aggregate sensitivity if count all bugs
 
-    // Add a row for aggregate sensitivity if count all bugs
+    colHeaders.push('Microbe');
+    colHeaders.push('Isolates Tested');
+    colHeaders.push('ALL DRUGS');
+
     dataRow = new Array();
     dataTable.push(dataRow);
-    dataRow.push('ALL BUGS');
     dataRow.push(totalNumTested);
     dataRow.push(minOfMaxForAllDrugs);
     for( var j=0; j < drugListField.options.length; j++ )
     {
         var drug = drugListField.options[j].value;
         if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
+        colHeaders.push(drug);
         dataRow.push(minSensPerDrug[drug]);
     }
 
     // Core data table
+    rowHeaders.push('ALL BUGS');
     for( var i=0; i < bugListField.options.length; i++ )
     {
         var bug = bugListField.options[i].value;
         if ( maxSensPerBug[bug] == null ) { continue; }  // Skip rows with no data
+        rowHeaders.push(bug);
 
         dataRow = new Array();
         dataTable.push(dataRow);
 
         // Add header / summary columns
-        dataRow.push(bug);
         var numTested = null;   // Default to unknown if based on general reference source
         if ( NUMBER_TESTED_KEY in bugSensTable )
         {
@@ -403,7 +404,7 @@ function generateSensitivityDataTable(theForm)
         }
     }
 
-    return dataTable;
+    return [dataTable, colHeaders, rowHeaders];
 }
 
 /**
@@ -412,37 +413,37 @@ function generateSensitivityDataTable(theForm)
 function generateSensitivityTableHTML(theForm)
 {
     // Separate data preparation from presentation steps
-    var dataTable = generateSensitivityDataTable(theForm);
+    var dataTuple = generateSensitivityDataTable(theForm);
+    var dataTable = dataTuple[0];
+    var colHeaders = dataTuple[1];
+    var rowHeaders = dataTuple[2];
 
     // Now actually adapt the data table into HTML presented form
     var tableHTML = new Array();
 
+    // Header Row
     tableHTML.push('<table border=0 cellpadding=2 cellspacing=2>');
+    tableHTML.push('<tr valign=bottom>');
+    for( var j=0; j < colHeaders.length; j++ )
+    {
+        tableHTML.push('<th class="headerRow">'+formatHeader(colHeaders[j])+'</th>');
+    }
+    tableHTML.push('</tr>');
+
     // Iterate through bug rows
     for( var i=0; i < dataTable.length; i++ )
     {
         tableHTML.push('<tr valign=middle>');
+
+        // Header Column
+        tableHTML.push('<td align=center class="headerCol">'+(rowHeaders[i])+'</td>');
 
         var dataRow = dataTable[i];
         // Iterate through drug columns / cells
         for( var j=0; j < dataRow.length; j++ )
         {
             var dataValue = dataRow[j];
-            if ( i == 0 ) // Header row formatting
-            {
-                tableHTML.push('<th class="headerRow">'+formatHeader(dataValue)+'</th>');
-            }
-            else    // General row formatting
-            {
-                if ( j == 0 )   // Header col formatting
-                {
-                    tableHTML.push('<td align=center class="headerCol">'+(dataValue)+'</td>');
-                }
-                else    // General col / cell formatting
-                {
-                    tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue)+'</td>');
-                }
-            }
+            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue)+'</td>');
         }
         tableHTML.push('</tr>');
     }
