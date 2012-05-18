@@ -551,7 +551,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '85\tStreptococcus pneumoniae\tNumber Tested\n'+
     '145\tEnterococcus (unspeciated)\tNumber Tested\n'+
     '69\tEnterococcus faecalis\tNumber Tested\n'+
-    '5612\tEnterococcus faecium\tNumber Tested\n'+
+    '56\tEnterococcus faecium\tNumber Tested\n'+
 
     '12\tEnterococcus faecium\tPenicillin G\n'+
     '12\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
@@ -925,6 +925,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tBacteroides (not fragilis)\tMeropenem\n'+
     '38\tBacteroides (not fragilis)\tClindamycin\n'+
     '96\tBacteroides (not fragilis)\tMetronidazole\n'+
+    /*
     '27\tGram Negative Rods (other)\tNumber Tested\n'+
     '100\tGram Negative Rods (other)\tAmpicillin-Sulbactam\n'+
     '100\tGram Negative Rods (other)\tPenicillin G\n'+
@@ -939,6 +940,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tGram Positive Rods (all)\tMeropenem\n'+
     '76\tGram Positive Rods (all)\tClindamycin\n'+
     '86\tGram Positive Rods (all)\tMetronidazole\n'+
+    */
     '24\tPeptostreptococcus\tNumber Tested\n'+
     '100\tPeptostreptococcus\tPenicillin G\n'+
     '88\tPeptostreptococcus\tClindamycin\n'+
