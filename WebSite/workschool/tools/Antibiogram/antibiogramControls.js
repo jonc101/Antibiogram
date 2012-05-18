@@ -20,6 +20,9 @@ function initialize(theForm)
 
     // Also reset the data load field to default data
     loadSensitivityData( theForm.dataLoad, "default", true );
+
+    clearSelectedBugs();
+    clearSelectedDrugs();
 }
 
 /**
@@ -261,82 +264,66 @@ function printSensitivityTable(theForm)
     }
 }
 
-function generateSensitivityTableHTML(theForm)
+/**
+ * Generate a simple 2D table of data to represent the core sensitivity data
+ * for the currently selected bugs and drugs.  Takes care of steps
+ *  like aggregating total column and row values, as well as automatically
+ *  excluding rows / columns without data.
+ *
+ * - Each column for one drug, plus add 1st column for "Number Isolates Tested" data if available
+ *      and 2nd column for "All Drugs"
+ * - Each row for one bug, plus add 1st column for "All Bugs"
+ *
+ */
+function generateSensitivityDataTable(theForm)
 {
-    var tableHTML = new Array();
-
-    tableHTML.push('<table border=0 cellpadding=2 cellspacing=2>');
+    var dataTable = new Array();    // 2D Table = Array of Arrays
+    var dataRow; // Next row to add to table
 
     var bugListField = theForm.bugSelected;
     var drugListField = theForm.drugSelected;
 
     // Associative array to collect cumulative / aggregate data on each column of drug information
     //  In particular, looking for the worst case scenario of poor / min sensitivity
-    var minSensPerDrug = new Array();
-    var maxSensPerBug = new Array();   // Similarly for bug, but account for max case, if use all selected drugs, accept best sensitivity
-    var minOfMaxForAllDrugs = null; // Final aggregate statistics.  Take the minimum of all max effects for each drug to see the worst case sensitivity if treated all selected drugs
+    var minSensPerDrug = {};
+
+    // Similarly for bug, but account for max case, if use all selected drugs, accept best sensitivity
+    var maxSensPerBug = {};
+
+    // Final aggregate statistics.  Take the minimum of all max effects for each drug to see the
+    //  worst case sensitivity if treated all selected drugs
+    var minOfMaxForAllDrugs = null;
 
     var totalNumTested = null;
 
-    var numTestedPlaceholderIndex = -1;
-    var rowPlaceholderIndex = -1;   // Index of a column stat placeholder element to aggregate
-
-    tableHTML.push('<tr valign=bottom>');
-    tableHTML.push('<th class="headerRow">Microbe</th>');
-    tableHTML.push('<th class="headerRow">Isolates Tested</th>');
-    tableHTML.push('<th class="headerRow">ALL DRUGS</th>');
+    // Iterate through data to collect aggregate data
     for( var j=0; j < drugListField.options.length; j++ )
     {
         var drug = drugListField.options[j].text;
-        var drugFormatted = formatHeader(drug);
-        tableHTML.push('<th class="headerRow">'+drugFormatted+'</th>');
-
         minSensPerDrug[drug] = null;    // Start as unknown
     }
-    tableHTML.push('</tr>');
-
-    tableHTML.push('<tr valign=middle>');
-    tableHTML.push('<td align=center class="headercol">ALL BUGS</td>');
-    tableHTML.push('***PLACEHOLDER for total isolates tested data***');
-    numTestedPlaceholderIndex = (tableHTML.length - 1);
-    tableHTML.push('***MIN DRUG SENSITIVITY PLACEHOLDER***');  // Put a placeholder element that will be overwritten when aggregate column stats
-    rowPlaceholderIndex = (tableHTML.length - 1);
-    tableHTML.push('</tr>');
-
     for( var i=0; i < bugListField.options.length; i++ )
     {
         var bug = bugListField.options[i].value;
-        var colPlaceholderIndex = -1;  // Index of a row stat placeholder element to aggregate
-
         maxSensPerBug[bug] = null;  // Start as unknown
 
-        var sensTable = {};
+        var bugSensTable = {};
         if ( bug in SENSITIVITY_TABLE_BY_BUG )
         {
-            sensTable = SENSITIVITY_TABLE_BY_BUG[bug];
+            bugSensTable = SENSITIVITY_TABLE_BY_BUG[bug];
         }
 
         var numTested = null;   // Default to unknown if based on general reference source
-        if ( NUMBER_TESTED_KEY in sensTable )
+        if ( NUMBER_TESTED_KEY in bugSensTable )
         {
-            numTested = sensTable[NUMBER_TESTED_KEY];
+            numTested = bugSensTable[NUMBER_TESTED_KEY];
             if ( !totalNumTested ) { totalNumTested = 0; }
             totalNumTested += numTested;
         }
-
-        tableHTML.push('<tr valign=middle>');
-        tableHTML.push('<td align=center class="headerCol">'+bug+'</td>');
-        tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(numTested)+'">'+formatValue(numTested)+'</td>');
-
-        tableHTML.push('***MAX BUG SENSITIVITY PLACEHOLDER***');  // Put a placeholder element that will be overwritten when aggregate row stats
-        colPlaceholderIndex = (tableHTML.length - 1);
-
         for( var j=0; j < drugListField.options.length; j++ )
         {
             var drug = drugListField.options[j].value;
-            var sensValue = sensTable[drug];
-
-            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(sensValue)+'">'+formatValue(sensValue)+'</td>');
+            var sensValue = bugSensTable[drug];
 
             if ( maxSensPerBug[bug] == null || sensValue > maxSensPerBug[bug] )
             {
@@ -347,30 +334,120 @@ function generateSensitivityTableHTML(theForm)
                 minSensPerDrug[drug] = sensValue;
             }
         }
-        tableHTML.push('</tr>');
-
-        // Overwrite placeholder element with aggregated row statistics
-        tableHTML[colPlaceholderIndex] = '<th align=center style="background-color: '+cellColorPerValue(maxSensPerBug[bug])+'">'+formatValue(maxSensPerBug[bug])+'</th>';
 
         if ( minOfMaxForAllDrugs == null || maxSensPerBug[bug] < minOfMaxForAllDrugs )
         {
             minOfMaxForAllDrugs = maxSensPerBug[bug];
         }
     }
-    tableHTML.push('</table>');
 
-    // Fill in total number tested field
-    tableHTML[numTestedPlaceholderIndex] = '<th style="background-color: '+cellColorPerValue(totalNumTested)+'">'+formatValue(totalNumTested)+'</th>';
-
-    // Go back and fill in / overwrite placeholder element with aggregated column statistics
-    var replacementHTML = new Array();
-    replacementHTML.push('<th style="background-color: '+cellColorPerValue(minOfMaxForAllDrugs)+'">'+formatValue(minOfMaxForAllDrugs)+'</th>');
+    // With the aggregate data now available, now iterate again to actually construct the data table
+    // First add a drug name header row
+    dataRow = new Array();
+    dataTable.push(dataRow);
+    dataRow.push('Microbe');
+    dataRow.push('Isolates Tested');
+    dataRow.push('ALL DRUGS');
     for( var j=0; j < drugListField.options.length; j++ )
     {
-        var drug = drugListField.options[j].text;
-        replacementHTML.push('<th style="background-color: '+cellColorPerValue(minSensPerDrug[drug])+'">'+formatValue(minSensPerDrug[drug])+'</th>');
+        var drug = drugListField.options[j].value;
+        if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
+        dataRow.push(drug);
     }
-    tableHTML[rowPlaceholderIndex] = replacementHTML.join("\n");
+
+    // Add a row for aggregate sensitivity if count all bugs
+    dataRow = new Array();
+    dataTable.push(dataRow);
+    dataRow.push('ALL BUGS');
+    dataRow.push(totalNumTested);
+    dataRow.push(minOfMaxForAllDrugs);
+    for( var j=0; j < drugListField.options.length; j++ )
+    {
+        var drug = drugListField.options[j].value;
+        if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
+        dataRow.push(minSensPerDrug[drug]);
+    }
+
+    // Core data table
+    for( var i=0; i < bugListField.options.length; i++ )
+    {
+        var bug = bugListField.options[i].value;
+        if ( maxSensPerBug[bug] == null ) { continue; }  // Skip rows with no data
+
+        dataRow = new Array();
+        dataTable.push(dataRow);
+
+        // Add header / summary columns
+        dataRow.push(bug);
+        var numTested = null;   // Default to unknown if based on general reference source
+        if ( NUMBER_TESTED_KEY in bugSensTable )
+        {
+            numTested = bugSensTable[NUMBER_TESTED_KEY];
+        }
+        dataRow.push(numTested);
+        dataRow.push(maxSensPerBug[bug]);
+
+        var bugSensTable = {};
+        if ( bug in SENSITIVITY_TABLE_BY_BUG )
+        {
+            bugSensTable = SENSITIVITY_TABLE_BY_BUG[bug];
+        }
+
+        for( var j=0; j < drugListField.options.length; j++ )
+        {
+            var drug = drugListField.options[j].value;
+            if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
+
+            var sensValue = bugSensTable[drug];
+            dataRow.push(sensValue);
+        }
+    }
+
+    return dataTable;
+}
+
+/**
+ * Produce the HTML table representation of sensitivity data for the selected bugs and drugs
+ */
+function generateSensitivityTableHTML(theForm)
+{
+    // Separate data preparation from presentation steps
+    var dataTable = generateSensitivityDataTable(theForm);
+
+    // Now actually adapt the data table into HTML presented form
+    var tableHTML = new Array();
+
+    tableHTML.push('<table border=0 cellpadding=2 cellspacing=2>');
+    // Iterate through bug rows
+    for( var i=0; i < dataTable.length; i++ )
+    {
+        tableHTML.push('<tr valign=middle>');
+
+        var dataRow = dataTable[i];
+        // Iterate through drug columns / cells
+        for( var j=0; j < dataRow.length; j++ )
+        {
+            var dataValue = dataRow[j];
+            if ( i == 0 ) // Header row formatting
+            {
+                tableHTML.push('<th class="headerRow">'+formatHeader(dataValue)+'</th>');
+            }
+            else    // General row formatting
+            {
+                if ( j == 0 )   // Header col formatting
+                {
+                    tableHTML.push('<td align=center class="headerCol">'+(dataValue)+'</td>');
+                }
+                else    // General col / cell formatting
+                {
+                    tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue)+'</td>');
+                }
+            }
+        }
+        tableHTML.push('</tr>');
+    }
+
+    tableHTML.push('</table>');
 
     return tableHTML.join("\n");
 }
