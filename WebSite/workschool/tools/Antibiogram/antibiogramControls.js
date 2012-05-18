@@ -426,7 +426,14 @@ function generateSensitivityTableHTML(theForm)
     tableHTML.push('<tr valign=bottom>');
     for( var j=0; j < colHeaders.length; j++ )
     {
-        tableHTML.push('<th class="headerRow">'+formatHeader(colHeaders[j])+'</th>');
+        if ( j == 0 )   // Don't modify the first header column
+        {
+            tableHTML.push('<th class="headerRow">'+colHeaders[j]+'</th>');
+        }
+        else
+        {
+            tableHTML.push('<th class="headerRow">'+formatHeader(colHeaders[j])+'</th>');
+        }
     }
     tableHTML.push('</tr>');
 
@@ -436,7 +443,7 @@ function generateSensitivityTableHTML(theForm)
         tableHTML.push('<tr valign=middle>');
 
         // Header Column
-        tableHTML.push('<td align=center class="headerCol">'+(rowHeaders[i])+'</td>');
+        tableHTML.push('<td align=center class="headerCol" nowrap>'+(rowHeaders[i])+'</td>');
 
         var dataRow = dataTable[i];
         // Iterate through drug columns / cells
@@ -458,7 +465,19 @@ function generateSensitivityTableHTML(theForm)
  */
 function formatHeader(inText)
 {
-    return inText.replace('/',' / ');
+    //return '<div class="rotateText">'+inText.replace('/',' / ')+'</div>';
+    inText = inText.replace('/',' / ');
+
+    return inText;
+
+    /*
+    var outText = new Array();
+    for( var i=0; i < inText.length; i++ )
+    {
+        outText.push(inText.charAt(i));
+    }
+    return outText.join('\n');
+    */
 }
 
 /**
