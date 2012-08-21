@@ -353,12 +353,12 @@ function generateSensitivityDataTable(theForm)
     // First add a drug name header row and a row for aggregate sensitivity if count all bugs
 
     colHeaders.push('Microbe');
-    colHeaders.push('Isolates Tested');
+    if ( totalNumTested ) { colHeaders.push('Isolates Tested'); } // Only show if have data
     colHeaders.push('ALL DRUGS');
 
     dataRow = new Array();
     dataTable.push(dataRow);
-    dataRow.push(totalNumTested);
+    if ( totalNumTested ) { dataRow.push(totalNumTested); }
     dataRow.push(minOfMaxForAllDrugs);
     for( var j=0; j < drugListField.options.length; j++ )
     {
@@ -380,12 +380,15 @@ function generateSensitivityDataTable(theForm)
         dataTable.push(dataRow);
 
         // Add header / summary columns
-        var numTested = null;   // Default to unknown if based on general reference source
-        if ( NUMBER_TESTED_KEY in bugSensTable )
+        if ( totalNumTested )
         {
-            numTested = bugSensTable[NUMBER_TESTED_KEY];
+            var numTested = null;   // Default to unknown if based on general reference source
+            if ( NUMBER_TESTED_KEY in bugSensTable )
+            {
+                numTested = bugSensTable[NUMBER_TESTED_KEY];
+            }
+            dataRow.push(numTested);
         }
-        dataRow.push(numTested);
         dataRow.push(maxSensPerBug[bug]);
 
         var bugSensTable = {};
