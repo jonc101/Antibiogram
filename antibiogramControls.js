@@ -379,6 +379,13 @@ function generateSensitivityDataTable(theForm)
         dataRow = new Array();
         dataTable.push(dataRow);
 
+        // Load data for lookup
+        var bugSensTable = {};
+        if ( bug in SENSITIVITY_TABLE_BY_BUG )
+        {
+            bugSensTable = SENSITIVITY_TABLE_BY_BUG[bug];
+        }
+
         // Add header / summary columns
         if ( totalNumTested )
         {
@@ -390,12 +397,6 @@ function generateSensitivityDataTable(theForm)
             dataRow.push(numTested);
         }
         dataRow.push(maxSensPerBug[bug]);
-
-        var bugSensTable = {};
-        if ( bug in SENSITIVITY_TABLE_BY_BUG )
-        {
-            bugSensTable = SENSITIVITY_TABLE_BY_BUG[bug];
-        }
 
         for( var j=0; j < drugListField.options.length; j++ )
         {
