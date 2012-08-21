@@ -614,6 +614,9 @@ function submitSensitivityData(dataLoadField, clearPriorData)
     // Update the list of available bugs and drugs to select from
     updateBugList(theForm);
     updateDrugList(theForm);
+    
+    clearSelectedBugs();
+    clearSelectedDrugs();
 }
 
 

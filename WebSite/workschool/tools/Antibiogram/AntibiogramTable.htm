@@ -31,15 +31,11 @@ jonc101 at stanford.edu
     <input type=hidden name="summary" value="">
 
     <div align=center>
-
-    <input type=button onClick="loadSensitivityData(this.form.dataLoad, 'Stanford2011', false)" value="Load Stanford 2011
-Antibiogram Data">
-    <input type=button onClick="loadSensitivityData(this.form.dataLoad, 'PAVA2011', false)" value="Load Palo Alto VA 2011
-Antibiogram Data" disabled>
-    <input type=button onClick="loadSensitivityData(this.form.dataLoad )" value="Reset to Default (Sanford)
-Sensitivity Data">
-
-
+   	<h1>Customizable Antibiogram</h1>
+   	<select onChange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);">
+   		<option value="default">Default (Sanford)
+   		<option value="Stanford2011">Stanford (SUH) 2011
+   	</select>
 
     <table border=1>
         <tr>
