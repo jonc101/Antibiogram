@@ -15,14 +15,11 @@ var SENSITIVITY_COLOR_UNKNOWN = new Color('#f0f0f0');
  */
 function initialize(theForm)
 {
-    updateBugList(theForm);
-    updateDrugList(theForm);
-
-    // Also reset the data load field to default data
+    // Reset the data load field to default data
     loadSensitivityData( theForm.dataLoad, "default", true );
 
-    clearSelectedBugs();
-    clearSelectedDrugs();
+    updateBugList(theForm);
+    updateDrugList(theForm);
 }
 
 /**
@@ -32,13 +29,11 @@ function clearSelectedBugs()
 {
     var theForm = document.forms[0];
     theForm.bugSelected.options.length = 0;
-    updateBugList(theForm);
 }
 function clearSelectedDrugs()
 {
     var theForm = document.forms[0];
     theForm.drugSelected.options.length = 0;
-    updateDrugList(theForm);
 }
 
 /**
@@ -62,7 +57,7 @@ function updateBugList(theForm)
 
     // Eliminate any prior data
     availableField.options.length = 0;
-    //selectedField.options.length = 0;
+    selectedField.options.length = 0;
 
     // Build up filtered list of items
     var filteredList = new Array();
@@ -134,7 +129,7 @@ function updateDrugList(theForm)
 
     // Eliminate any prior data
     availableField.options.length = 0;
-    //selectedField.options.length = 0;
+    selectedField.options.length = 0;
 
     // Build up filtered list of items
     var filteredList = new Array();
@@ -615,9 +610,6 @@ function submitSensitivityData(dataLoadField, clearPriorData)
     // Update the list of available bugs and drugs to select from
     updateBugList(theForm);
     updateDrugList(theForm);
-    
-    clearSelectedBugs();
-    clearSelectedDrugs();
 }
 
 

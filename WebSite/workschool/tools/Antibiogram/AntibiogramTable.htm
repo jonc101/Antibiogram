@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>Interactive Antibiogram</title>
 
 <!--
 Interactive Antibiogram
@@ -31,9 +32,8 @@ jonc101 at stanford.edu
     <input type=hidden name="summary" value="">
 
     <div align=center>
-   	<h1>Customizable Antibiogram</h1>
    	<select onChange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);">
-   		<option value="default">Default (Sanford)
+   		<option value="default">Default Antibiogram (Sanford Guide 2010)
    		<option value="Stanford2011">Stanford (SUH) 2011
    		<option value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency Department
    	</select>
@@ -133,8 +133,7 @@ jonc101 at stanford.edu
         </tr>
     </table>
 
-    <input type=submit value="Reset" onClick="initialize(this.form);" tabindex=500 style="font-size: 16pt;">
-    <input type=submit value="Analysis" onClick="doAnalysis(this.form);" tabindex=500 style="font-size: 16pt;">
+    <input type=submit value="Generate Sensitivity Table" onClick="doAnalysis(this.form);" tabindex=500 style="font-size: 16pt;">
 
     <div id="sensitivityTableSpace">
     </div>
