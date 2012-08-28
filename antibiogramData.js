@@ -108,7 +108,7 @@ DRUG_LIST.sort();   // Present in alphabetic sorted order
 var DRUG_CLASS_LIST =
     [
         'Oral Available',
-    
+
         'Penicillin',
         'Anti-Staphylococcal Penicillin',
         'Amino-Penicillin',
@@ -321,7 +321,7 @@ var BUG_LIST =
         'Coccidioides immitis/posadasii',
         'Histoplasma capsulatum',
         'Sporothrix schenckii',
-        
+
         // Additional elements from VA Antibiogram
         'Staphylococcus capitis',
         'Staphylococcus hominis'
@@ -331,18 +331,18 @@ BUG_LIST.sort();    // Present in sorted order to facilitate selection lookup
 
 var BUG_PROPERTY_LIST =
     [   'Gram Positive',
-        
+
         'Gram Positive Cocci in Pairs / Chains',
         'Gram Positive Cocci in Clusters',
         'Gram Positive Cocci in Clusters, Coagulase Negative',
         'Gram Positive Rods',
-        
+
         'Gram Negative',
         'Gram Negative (Diplo)Cocci',
         'Gram Negative Rods, Lactose Fermenting',
         'Gram Negative Rods, Non-Lactose Fermenting',
         'Gram Negative Rods, Non-Fermenting',
-        
+
         'Atypical',
         'Anaerobe',
         'Fungal (Yeast)',
@@ -408,25 +408,24 @@ var PROPERTIES_BY_BUG =
         'Peptostreptococcus': ['Anaerobe'],
 
 
-
-        'Streptococcus Group B (agalactiae)': ['Gram Positive'],
-        'Enterococcus (unspeciated)': ['Gram Positive'],
+        'Streptococcus Group B (agalactiae)': ['Gram Positive','Gram Positive Cocci in Pairs / Chains'],
+        'Enterococcus (unspeciated)': ['Gram Positive','Gram Positive Cocci in Pairs / Chains'],
 
         'Achromobacter xylosoxidans': ['Gram Negative'],
-        'Citrobacter koseri': ['Gram Negative'],
-        'Enterobacter aerogenes': ['Gram Negative'],
-        'Enterobacter cloacae': ['Gram Negative'],
-        'Klebsiella oxytoca': ['Gram Negative'],
-        'Klebsiella pneumoniae': ['Gram Negative'],
-        'Pseudomonas aeruginosa CF mucoid': ['Gram Negative'],
-        'Pseudomonas aeruginosa CF non-mucoid': ['Gram Negative'],
+        'Citrobacter koseri': ['Gram Negative','Gram Negative Rods Lactose Fermenting'],
+        'Enterobacter aerogenes': ['Gram Negative','Gram Negative Rods Lactose Fermenting'],
+        'Enterobacter cloacae': ['Gram Negative','Gram Negative Rods Lactose Fermenting'],
+        'Klebsiella oxytoca': ['Gram Negative','Gram Negative Rods Lactose Fermenting'],
+        'Klebsiella pneumoniae': ['Gram Negative','Gram Negative Rods Lactose Fermenting'],
+        'Pseudomonas aeruginosa CF mucoid': ['Gram Negative','Gram Negative Rods Non-Lactose Fermenting','Gram Negative Rods Non-Fermenting'],
+        'Pseudomonas aeruginosa CF non-mucoid': ['Gram Negative','Gram Negative Rods Non-Lactose Fermenting','Gram Negative Rods Non-Fermenting'],
 
-        'Staphylococcus aureus (all)': ['Gram Positive'],
-        'Staphylococcus lugdunensis': ['Gram Positive'],
+        'Staphylococcus aureus (all)': ['Gram Positive','Gram Positive Cocci in Clusters'],
+        'Staphylococcus lugdunensis': ['Gram Positive','Gram Positive Cocci in Clusters','Gram Positive Cocci in Clusters, Coagulase Negative'],
 
         'Bacteroides (not fragilis)': ['Anaerobe'],
         'Gram Negative Rods (other)': ['Gram Negative'],
-        'Gram Positive Rods (all)': ['Gram Positive'],
+        'Gram Positive Rods (all)': ['Gram Positive','Gram Positive Rods'],
         'Campylobacter': ['Gram Negative'],
 
         'Candida albicans': ['Fungal (Yeast)'],
@@ -452,8 +451,8 @@ var PROPERTIES_BY_BUG =
         'Histoplasma capsulatum': ['Fungal (Dimorphic)'],
         'Sporothrix schenckii': ['Fungal (Dimorphic)'],
 
-        'Staphylococcus capitis': ['Gram Positive'],
-        'Staphylococcus hominis': ['Gram Positive']
+        'Staphylococcus capitis': ['Gram Positive','Gram Positive Cocci in Clusters','Gram Positive Cocci in Clusters, Coagulase Negative'],
+        'Staphylococcus hominis': ['Gram Positive','Gram Positive Cocci in Clusters','Gram Positive Cocci in Clusters, Coagulase Negative']
 
     };
 

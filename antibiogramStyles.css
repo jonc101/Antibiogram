@@ -72,6 +72,12 @@ select
   	background-color:	#e0e0e0;
 }
 
+.instructionCell
+{
+	background-color:	#c0c0c0;
+}
+
+
 .iconButton
 {
 	font-size: 16pt;
