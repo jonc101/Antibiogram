@@ -123,7 +123,7 @@ jonc101 at stanford.edu
             </td>
 
             <td align=center>
-                <select name="bugAvailable" multiple size=10 style="width: 280;">
+                <select name="bugAvailable" multiple size=10 style="width: 280;" onDblClick="selectMoveCopy( this, this.form.bugSelected, true )">
                 </select>
             </td>
             <td align=center>
@@ -132,12 +132,12 @@ jonc101 at stanford.edu
                 <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.bugSelected, null, false )">
             </td>
             <td align=center>
-                <select name="bugSelected" multiple size=10 style="width: 150;">
+                <select name="bugSelected" multiple size=10 style="width: 150;" onDblClick="selectMoveCopy( this, null, false )">
                 </select>
             </td>
 
             <td align=center>
-                <select name="drugAvailable" multiple size=10 style="width: 280;">
+                <select name="drugAvailable" multiple size=10 style="width: 280;" onDblClick="selectMoveCopy( this, this.form.drugSelected, true )">
                 </select>
             </td>
             <td align=center>
@@ -146,7 +146,7 @@ jonc101 at stanford.edu
                 <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.drugSelected, null, false )">
             </td>
             <td align=center>
-                <select name="drugSelected" multiple size=10 style="width: 150;">
+                <select name="drugSelected" multiple size=10 style="width: 150;" onDblClick="selectMoveCopy( this, null, false )">
                 </select>
             </td>
         </tr>
