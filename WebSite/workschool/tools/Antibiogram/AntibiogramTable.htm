@@ -1,8 +1,8 @@
-<html>
-<head>
-<title>Interactive Antibiogram</title>
-
-<!--
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0071)http://www.stanford.edu/~jonc101/tools/Antibiogram/AntibiogramTable.htm -->
+<HTML><HEAD><META content="IE=5.0000" http-equiv="X-UA-Compatible">
+ <TITLE>Interactive Antibiogram</TITLE> 
+<META http-equiv="Content-Type" content="text/html; charset=windows-1252"><!--
 Interactive Antibiogram
 Jonathan H. Chen
 jonc101 at gmail.com
@@ -15,170 +15,143 @@ jonc101 at stanford.edu
  * See linked data file for additional data source references
  *
  */
--->
-
-<link rel="stylesheet" type="text/css" href="antibiogramStyles.css">
-
-<SCRIPT LANGUAGE="JavaScript" SRC="../lib/toolkit.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="../lib/Color.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" SRC="antibiogramData.js"></SCRIPT>
-
-<SCRIPT LANGUAGE="JavaScript" SRC="antibiogramControls.js"></SCRIPT>
-
-</head>
-<body onLoad="initialize(document.forms[0]);" topmargin=0 leftmargin=0>
-
-<form name="analysisForm" onSubmit="return false;">
-    <input type=hidden name="summary" value="">
-
-    <div align=center>
-
-    <table border=0 cellpadding=2 cellspacing=2>
-        <tr>
-            <td class="instructionCell" align=center><b><i>Step 1</i></b><br>Select Antibiogram</td>
-            <td colspan=6 align=center class="headerRow">
-                <select onChange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);" class="headerRow" style="font-size: 16pt; border: solid black 0px;">
-                    <option value="default">Default Antibiogram (Sanford Guide 2010)
-                    <option value="Stanford2012">Stanford (SUH) 2012
-                    <option value="Stanford2011">Stanford (SUH) 2011
-                    <option value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency Department
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th class="instructionCell"><i>Step 2</i></th>
-            <th colspan=3 class="headerCol">Organism</th>
-            <th colspan=3 class="headerCol">Antimicrobial</th>
-        </tr>
-        <tr>
-            <td class="instructionCell" align=center>
-                Select Organism Groups of Interest
-                <br><br>
-                (Optional)<br>
-                Select Antimicrobial Subsets, e.g., "Oral Available"
-            </td>
-            <td colspan=3 align=center>
-                <table border=0 width=100%>
-                    <tr valign=top>
-                        <td>
-                            <script language="JavaScript">
+--> 
+<LINK href="AntibiogramTable_files/antibiogramStyles.css" rel="stylesheet" type="text/css"> 
+<SCRIPT language="JavaScript" src="AntibiogramTable_files/toolkit.js"></SCRIPT>
+ 
+<SCRIPT language="JavaScript" src="AntibiogramTable_files/Color.js"></SCRIPT>
+ 
+<SCRIPT language="JavaScript" src="AntibiogramTable_files/antibiogramData.js"></SCRIPT>
+ 
+<SCRIPT language="JavaScript" src="AntibiogramTable_files/antibiogramControls.js"></SCRIPT>
+ 
+<META name="GENERATOR" content="MSHTML 10.00.9200.16635"></HEAD> 
+<BODY topmargin="0" leftmargin="0" onload="initialize(document.forms[0]);">
+<FORM name="analysisForm" onsubmit="return false;"><INPUT name="summary" type="hidden"> 
+    
+<DIV align="center">
+<TABLE border="0" cellspacing="2" cellpadding="2">
+  <TBODY>
+  <TR>
+    <TD align="center" class="instructionCell"><B><I>Step 1</I></B><BR>Select 
+      Antibiogram</TD>
+    <TD align="center" class="headerRow" colspan="6"><SELECT class="headerRow" 
+      style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);"><OPTION 
+        value="default">Default Antibiogram (Sanford Guide 2010)                 
+            <OPTION value="Stanford2012">Stanford (SUH) 2012                     
+        <OPTION value="Stanford2011">Stanford (SUH) 2011                     
+        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency 
+        Department                 </OPTION></SELECT>             </TD></TR>
+  <TR>
+    <TH class="instructionCell"><I>Step 2</I></TH>
+    <TH class="headerCol" colspan="3">Organism</TH>
+    <TH class="headerCol" colspan="3">Antimicrobial</TH></TR>
+  <TR>
+    <TD align="center" class="instructionCell">                Select Organism 
+      Groups of Interest                 <BR><BR>                (Optional)<BR>  
+                    Select Antimicrobial Subsets, e.g., "Oral Available"         
+          </TD>
+    <TD align="center" colspan="3">
+      <TABLE width="100%" border="0">
+        <TBODY>
+        <TR valign="top">
+          <TD>
+<SCRIPT language="JavaScript">
                             for( var i=0; i < BUG_PROPERTY_LIST.length/2; i++ )
                             {
                                 var bugProp = BUG_PROPERTY_LIST[i];
                                 document.writeln('<input type=checkbox name="bugProp" onClick="updateBugList(this.form)" value="'+bugProp+'"><a href="javascript:toggleBugProp(\''+bugProp+'\')">'+bugProp+'</a><br>');
                             }
-                            </script>
-                        </td>
-                        <td>
-                            <script language="JavaScript">
+                            </SCRIPT>
+                                     </TD>
+          <TD>
+<SCRIPT language="JavaScript">
                             for( var i=Math.ceil(BUG_PROPERTY_LIST.length/2); i < BUG_PROPERTY_LIST.length; i++ )
                             {
                                 var bugProp = BUG_PROPERTY_LIST[i];
                                 document.writeln('<input type=checkbox name="bugProp" onClick="updateBugList(this.form)" value="'+bugProp+'"><a href="javascript:toggleBugProp(\''+bugProp+'\')">'+bugProp+'</a><br>');
                             }
-                            </script>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td colspan=3>
-                <table border=0 width=100%>
-                    <tr valign=top>
-                        <td>
-                            <script language="JavaScript">
+                            </SCRIPT>
+                                     </TD></TR></TBODY></TABLE></TD>
+    <TD colspan="3">
+      <TABLE width="100%" border="0">
+        <TBODY>
+        <TR valign="top">
+          <TD>
+<SCRIPT language="JavaScript">
                             for( var i=0; i < DRUG_CLASS_LIST.length/2; i++ )
                             {
                                 var drugProp = DRUG_CLASS_LIST[i];
                                 document.writeln('<input type=checkbox name="drugProp" onClick="updateDrugList(this.form)" value="'+drugProp+'"><a href="javascript:toggleDrugProp(\''+drugProp+'\')">'+drugProp+'</a><br>');
                             }
-                            </script>
-                        </td>
-                        <td>
-                            <script language="JavaScript">
+                            </SCRIPT>
+                                     </TD>
+          <TD>
+<SCRIPT language="JavaScript">
                             for( var i=Math.ceil(DRUG_CLASS_LIST.length/2); i < DRUG_CLASS_LIST.length; i++ )
                             {
                                 var drugProp = DRUG_CLASS_LIST[i];
                                 document.writeln('<input type=checkbox name="drugProp" onClick="updateDrugList(this.form)" value="'+drugProp+'"><a href="javascript:toggleDrugProp(\''+drugProp+'\')">'+drugProp+'</a><br>');
                             }
-                            </script>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <th class="instructionCell"><i>Step 3</i></th>
-
-            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].bugAvailable, true)">Available</a></td>
-            <td class="headerCol">&nbsp;</td>
-            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].bugSelected, true)">Selected</a> <a href="javascript:clearSelectedBugs();">(Clear)</a></td>
-
-            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].drugAvailable, true)">Available</a></td>
-            <td class="headerCol">&nbsp;</td>
-            <td class="headerCol" align=center><a href="javascript:selectAllList(document.forms[0].drugSelected, true)">Selected</a> <a href="javascript:clearSelectedDrugs();">(Clear)</a></td>
-        </tr>
-        <tr valign=middle>
-            <td class="instructionCell" align=center>
-                (Optional)<br>
-                Customize List of Selected Organisms and Antimicrobials
-            </td>
-
-            <td align=center>
-                <select name="bugAvailable" multiple size=10 style="width: 280;" onDblClick="selectMoveCopy( this, this.form.bugSelected, true )">
-                </select>
-            </td>
-            <td align=center>
-                <input type=button value="(+)" class="iconButton" onClick="selectMoveCopy( this.form.bugAvailable, this.form.bugSelected, true )">
-                <br><br>
-                <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.bugSelected, null, false )">
-            </td>
-            <td align=center>
-                <select name="bugSelected" multiple size=10 style="width: 150;" onDblClick="selectMoveCopy( this, null, false )">
-                </select>
-            </td>
-
-            <td align=center>
-                <select name="drugAvailable" multiple size=10 style="width: 280;" onDblClick="selectMoveCopy( this, this.form.drugSelected, true )">
-                </select>
-            </td>
-            <td align=center>
-                <input type=button value="(+)" class="iconButton" onClick="selectMoveCopy( this.form.drugAvailable, this.form.drugSelected, true )">
-                <br><br>
-                <input type=button value="(-)" class="iconButton" onClick="selectMoveCopy( this.form.drugSelected, null, false )">
-            </td>
-            <td align=center>
-                <select name="drugSelected" multiple size=10 style="width: 150;" onDblClick="selectMoveCopy( this, null, false )">
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td class="instructionCell" align=center><b><i>Step 4</i></b><br>Generate Table</td>
-            <td colspan=6 align=center class="headerRow">
-                <input type=submit value="Generate Sensitivity Table" onClick="doAnalysis(this.form);" tabindex=500 style="font-size: 16pt;">
-            </td>
-        </tr>
-    </table>
-
-    <div id="sensitivityTableSpace">
-    </div>
-
-    <br><br>
-
-    <table border=0 cellpadding=2 cellspacing=2>
-        <tr valign=top>
-            <td align=center width=50%>
-                <textarea name="feedback" rows=10 cols=80 wrap="off"></textarea>
-                <br>
-                <i>Debug Feedback Area</i>
-            </td>
-            <td align=center width=50%>
-                <textarea name="dataLoad" rows=10 cols=80 wrap="off"></textarea>
-                <input type=button onClick="submitSensitivityData(this.form.dataLoad);" value="Add Custom Sensitivity Data">
-            </td>
-        </tr>
-    </table>
-
-    </div>
-</form>
-</body>
-</html>
+                            </SCRIPT>
+                                     </TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TH class="instructionCell"><I>Step 3</I></TH>
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].bugAvailable, true)">Available</A></TD>
+    <TD class="headerCol">&nbsp;</TD>
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].bugSelected, true)">Selected</A> 
+      <A href="javascript:clearSelectedBugs();">(Clear)</A></TD>
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].drugAvailable, true)">Available</A></TD>
+    <TD class="headerCol">&nbsp;</TD>
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].drugSelected, true)">Selected</A> 
+      <A href="javascript:clearSelectedDrugs();">(Clear)</A></TD></TR>
+  <TR valign="middle">
+    <TD align="center" class="instructionCell">                (Optional)<BR>  
+                    Customize List of Selected Organisms and Antimicrobials      
+             </TD>
+    <TD align="center"><SELECT name="bugAvailable" style="width: 280px;" 
+      ondblclick="selectMoveCopy( this, this.form.bugSelected, true )" size="10" 
+      multiple=""></SELECT>             </TD>
+    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugAvailable, this.form.bugSelected, true )" type="button" value="(+)"> 
+                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugSelected, null, false )" type="button" value="(-)"> 
+                  </TD>
+    <TD align="center"><SELECT name="bugSelected" style="width: 150px;" 
+      ondblclick="selectMoveCopy( this, null, false )" size="10" 
+      multiple=""></SELECT>             </TD>
+    <TD align="center"><SELECT name="drugAvailable" style="width: 280px;" 
+      ondblclick="selectMoveCopy( this, this.form.drugSelected, true )" size="10" 
+      multiple=""></SELECT>             </TD>
+    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugAvailable, this.form.drugSelected, true )" type="button" value="(+)"> 
+                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugSelected, null, false )" type="button" value="(-)"> 
+                  </TD>
+    <TD align="center"><SELECT name="drugSelected" style="width: 150px;" 
+      ondblclick="selectMoveCopy( this, null, false )" size="10" 
+      multiple=""></SELECT>             </TD></TR>
+  <TR>
+    <TD align="center" class="instructionCell"><B><I>Step 
+      4</I></B><BR>Generate Table</TD>
+    <TD align="center" class="headerRow" 
+colspan="6"><INPUT tabindex="500" style="font-size: 16pt;" onclick="doAnalysis(this.form);" type="submit" value="Generate Sensitivity Table"> 
+                  </TD></TR></TBODY></TABLE>
+<DIV id="sensitivityTableSpace"></DIV><BR><BR>
+<TABLE border="0" cellspacing="2" cellpadding="2">
+  <TBODY>
+  <TR valign="top">
+    <TD width="50%" align="center"><TEXTAREA name="feedback" rows="10" cols="80" wrap="off"></TEXTAREA> 
+                      <BR><I>Debug Feedback Area</I>             </TD>
+    <TD width="50%" align="center"><TEXTAREA name="dataLoad" rows="10" cols="80" wrap="off"></TEXTAREA> 
+                      <INPUT onclick="submitSensitivityData(this.form.dataLoad);" type="button" value="Add Custom Sensitivity Data"> 
+                  </TD></TR></TBODY></TABLE></DIV>
+<UL>
+  <LI><A 
+  href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford 
+  Antibiogram</A> 
+  <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo 
+  Alto VA 2011 Antibiogram</A> 
+  <LI><A 
+  href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard 
+  Childrens Hospital Antibiogram</A> 
+  <LI><A href="http://www.sanfordguide.com/index.html">Sanford Guide to 
+  Antimicrobial Therapy</A><BR><I>(Qualitatively assigns sensitivities as +, 
+  +/-, -.  These are arbitrarily assigned sensitivity values of 90, 50, and 0 in 
+  this table.)</I> </LI></UL></FORM></BODY></HTML>
