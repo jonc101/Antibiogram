@@ -41,6 +41,7 @@ var DRUG_LIST =
         'Imipenem',
         'Meropenem',
         'Aztreonam',
+        
         'Ciprofloxacin',
         'Ofloxacin',
         'Pefloxacin',
@@ -71,6 +72,7 @@ var DRUG_LIST =
         'Gentamicin',
         'Tobramycin',
         'Amikacin',
+        
         'Chloramphenicol',
         'Clindamycin',
         'Erythromycin',
@@ -86,9 +88,9 @@ var DRUG_LIST =
         'Fusidic Acid',
         'Trimethoprim',
         'TMP-SMX',
-        'Nitrofurantoin',
+        'Nitrofurantoin (uncomplicated UTI)',
         'Fosfomycin',
-        'Rifampin',
+        'Rifampin (not for Staph monotherapy)',
         'Metronidazole',
         'Quinupristin-Dalfopristin',
         'Linezolid',
@@ -203,9 +205,9 @@ var PROPERTIES_BY_DRUG =
         'Fusidic Acid': ['Anti-Metabolite'],
         'Trimethoprim': ['Anti-Metabolite','Oral Available'],
         'TMP-SMX': ['Anti-Metabolite','Oral Available'],
-        'Nitrofurantoin': ['Urinary Tract','Oral Available'],
+        'Nitrofurantoin (uncomplicated UTI)': ['Urinary Tract','Oral Available'],
         'Fosfomycin': ['Urinary Tract'],
-        'Rifampin': ['Miscellaneous','Oral Available'],
+        'Rifampin (not for Staph monotherapy)': ['Miscellaneous','Oral Available'],
         'Metronidazole': ['Miscellaneous','Oral Available'],
         'Quinupristin-Dalfopristin': ['Miscellaneous'],
         'Linezolid': ['Miscellaneous','Oral Available'],
@@ -278,9 +280,10 @@ var BUG_LIST =
         'Clostridium (not difficile)',
         'Peptostreptococcus',
 
-        // Additional elements from Stanford Antibiogram
+        // Additional elements from local Antibiograms
         'Streptococcus Group B (agalactiae)',
         'Enterococcus (unspeciated)',
+        'Enterococcus (VRE)',
 
         'Achromobacter xylosoxidans',
         'Citrobacter koseri',
@@ -410,6 +413,7 @@ var PROPERTIES_BY_BUG =
 
         'Streptococcus Group B (agalactiae)': ['Gram Positive','Gram Positive Cocci in Pairs / Chains'],
         'Enterococcus (unspeciated)': ['Gram Positive','Gram Positive Cocci in Pairs / Chains'],
+        'Enterococcus (VRE)': ['Gram Positive','Gram Positive Cocci in Pairs / Chains'],
 
         'Achromobacter xylosoxidans': ['Gram Negative'],
         'Citrobacter koseri': ['Gram Negative','Gram Negative Rods, Lactose Fermenting'],
@@ -514,7 +518,7 @@ var SENSITIVITY_TABLE_BY_BUG =
         'Serratia marcescens': {'Amikacin': 90,'Azithromycin': 0,'Chloramphenicol': 50,'Clarithromycin': 0,'Clindamycin': 0,'Colistimethate': 0,'Daptomycin (non-pneumonia)': 0,'Doxycycline': 0,'Erythromycin': 0,'Fosfomycin': 50,'Fusidic Acid': 0,'Gentamicin': 90,'Linezolid': 0,'Metronidazole': 0,'Minocycline': 0,'Nitrofurantoin': 0,'Rifampin': 0,'TMP-SMX': 0,'Teicoplanin': 0,'Telavancin': 0,'Telithromycin': 0,'Tigecycline': 50,'Tobramycin': 90,'Trimethoprim': 0,'Vancomycin': 0},
         'Franciscella tularensis': {'Azithromycin': 0,'Chloramphenicol': 90,'Clarithromycin': 0,'Clindamycin': 0,'Daptomycin (non-pneumonia)': 0,'Doxycycline': 90,'Erythromycin': 0,'Gentamicin': 90,'Linezolid': 0,'Metronidazole': 0,'Minocycline': 90,'Rifampin': 90,'TMP-SMX': 90,'Teicoplanin': 0,'Telavancin': 0,'Telithromycin': 0,'Trimethoprim': 90,'Vancomycin': 0},
         'Brucella': {'Azithromycin': 90,'Clarithromycin': 90,'Daptomycin (non-pneumonia)': 0,'Doxycycline': 90,'Erythromycin': 90,'Fusidic Acid': 50,'Metronidazole': 0,'Minocycline': 90,'TMP-SMX': 90,'Telithromycin': 90,'Tigecycline': 90,'Trimethoprim': 90},
-        'Vibrio vulnificus': {'Amikacin': 0,'Azithromycin': 90,'Chloramphenicol': 90,'Clarithromycin': 90,'Clindamycin': 50,'Doxycycline': 90,'Erythromycin': 90,'Fusidic Acid': 0,'Gentamicin': 0,'Linezolid': 90,'Metronidazole': 0,'Minocycline': 90,'Nitrofurantoin': 0,'Quinupristin-Dalfopristin': 90,'Rifampin': 90,'Telithromycin': 90,'Tigecycline': 90,'Tobramycin': 0,'Trimethoprim': 0},
+        'Vibrio vulnificus': {'Amikacin': 0,'Azithromycin': 90,'Chloramphenicol': 90,'Clarithromycin': 90,'Clindamycin': 50,'Doxycycline': 90,'Erythromycin': 90,'Fusidic Acid': 0,'Gentamicin': 0,'Linezolid': 90,'Metronidazole': 0,'Minocycline': 90,'Nitrofurantoin (uncomplicated UTI)': 0,'Quinupristin-Dalfopristin': 90,'Rifampin (not for Staph monotherapy)': 90,'Telithromycin': 90,'Tigecycline': 90,'Tobramycin': 0,'Trimethoprim': 0},
         'Rickettsia': {'Amikacin': 90,'Azithromycin': 90,'Clarithromycin': 90,'Doxycycline': 0,'Linezolid': 0,'Metronidazole': 0,'Minocycline': 0,'Quinupristin-Dalfopristin': 0,'Tigecycline': 0},
         'Mycobacterium avium': {'Amikacin': 0,'Azithromycin': 90,'Chloramphenicol': 90,'Clarithromycin': 90,'Clindamycin': 90,'Doxycycline': 90,'Erythromycin': 90,'Fusidic Acid': 90,'Gentamicin': 0,'Metronidazole': 0,'Minocycline': 90,'Telavancin': 90,'Tobramycin': 0,'Vancomycin': 90},
 
@@ -557,6 +561,7 @@ for( var i=0; i < BUG_LIST.length; i++ )
             if ( drug in bugSensPerDrug )
             {
                 var sens = bugSensPerDrug[drug];
+                bugSensPerDrug[drug] = {'value':sens,'comment':null};	// Convert to valueMap format
                 dataStrArray.push(sens+'\t'+bug+'\t'+drug);
             }
         }
@@ -593,7 +598,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '85\tStreptococcus pneumoniae\tClindamycin\n'+
     '86\tStreptococcus viridans Group\tPenicillin G\n'+
     '86\tStreptococcus viridans Group\tAmpicillin/Amoxicillin\n'+
-    '89\tEnterococcus (unspeciated)\tNitrofurantoin\n'+
+    '89\tEnterococcus (unspeciated)\tNitrofurantoin (uncomplicated UTI)\n'+
     '90\tEnterococcus faecium\tQuinupristin-Dalfopristin\n'+
     '94\tStreptococcus pneumoniae\tCefuroxime\n'+
     '95\tStreptococcus pneumoniae\tCeftriaxone\n'+
@@ -719,7 +724,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tCitrobacter freundii\tCiprofloxacin\n'+
     '100\tCitrobacter freundii\tLevofloxacin\n'+
     '83\tCitrobacter freundii\tTMP-SMX\n'+
-    '92\tCitrobacter freundii\tNitrofurantoin\n'+
+    '92\tCitrobacter freundii\tNitrofurantoin (uncomplicated UTI)\n'+
     '10\tCitrobacter koseri\tNumber Tested\n'+
     '0\tCitrobacter koseri\tAmpicillin/Amoxicillin\n'+
     '0\tCitrobacter koseri\tAmpicillin-Sulbactam\n'+
@@ -736,7 +741,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tCitrobacter koseri\tCiprofloxacin\n'+
     '100\tCitrobacter koseri\tLevofloxacin\n'+
     '100\tCitrobacter koseri\tTMP-SMX\n'+
-    '60\tCitrobacter koseri\tNitrofurantoin\n'+
+    '60\tCitrobacter koseri\tNitrofurantoin (uncomplicated UTI)\n'+
     '146\tEnterobacter aerogenes\tNumber Tested\n'+
     '0\tEnterobacter aerogenes\tAmpicillin/Amoxicillin\n'+
     '0\tEnterobacter aerogenes\tAmpicillin-Sulbactam\n'+
@@ -753,7 +758,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '91\tEnterobacter aerogenes\tCiprofloxacin\n'+
     '98\tEnterobacter aerogenes\tLevofloxacin\n'+
     '94\tEnterobacter aerogenes\tTMP-SMX\n'+
-    '15\tEnterobacter aerogenes\tNitrofurantoin\n'+
+    '15\tEnterobacter aerogenes\tNitrofurantoin (uncomplicated UTI)\n'+
     '26\tEnterobacter cloacae\tNumber Tested\n'+
     '0\tEnterobacter cloacae\tAmpicillin/Amoxicillin\n'+
     '0\tEnterobacter cloacae\tAmpicillin-Sulbactam\n'+
@@ -770,7 +775,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tEnterobacter cloacae\tCiprofloxacin\n'+
     '100\tEnterobacter cloacae\tLevofloxacin\n'+
     '100\tEnterobacter cloacae\tTMP-SMX\n'+
-    '31\tEnterobacter cloacae\tNitrofurantoin\n'+
+    '31\tEnterobacter cloacae\tNitrofurantoin (uncomplicated UTI)\n'+
     '3748\tEscheria coli\tNumber Tested\n'+
     '40\tEscheria coli\tAmpicillin/Amoxicillin\n'+
     '47\tEscheria coli\tAmpicillin-Sulbactam\n'+
@@ -787,7 +792,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '62\tEscheria coli\tCiprofloxacin\n'+
     '63\tEscheria coli\tLevofloxacin\n'+
     '66\tEscheria coli\tTMP-SMX\n'+
-    '95\tEscheria coli\tNitrofurantoin\n'+
+    '95\tEscheria coli\tNitrofurantoin (uncomplicated UTI)\n'+
     '33\tKlebsiella oxytoca\tNumber Tested\n'+
     '0\tKlebsiella oxytoca\tAmpicillin/Amoxicillin\n'+
     '66\tKlebsiella oxytoca\tAmpicillin-Sulbactam\n'+
@@ -804,7 +809,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '97\tKlebsiella oxytoca\tCiprofloxacin\n'+
     '100\tKlebsiella oxytoca\tLevofloxacin\n'+
     '94\tKlebsiella oxytoca\tTMP-SMX\n'+
-    '83\tKlebsiella oxytoca\tNitrofurantoin\n'+
+    '83\tKlebsiella oxytoca\tNitrofurantoin (uncomplicated UTI)\n'+
     '753\tKlebsiella pneumoniae\tNumber Tested\n'+
     '0\tKlebsiella pneumoniae\tAmpicillin/Amoxicillin\n'+
     '83\tKlebsiella pneumoniae\tAmpicillin-Sulbactam\n'+
@@ -821,7 +826,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '89\tKlebsiella pneumoniae\tCiprofloxacin\n'+
     '90\tKlebsiella pneumoniae\tLevofloxacin\n'+
     '85\tKlebsiella pneumoniae\tTMP-SMX\n'+
-    '24\tKlebsiella pneumoniae\tNitrofurantoin\n'+
+    '24\tKlebsiella pneumoniae\tNitrofurantoin (uncomplicated UTI)\n'+
     '7\tMorganella\tNumber Tested\n'+
     '0\tMorganella\tAmpicillin/Amoxicillin\n'+
     '0\tMorganella\tAmpicillin-Sulbactam\n'+
@@ -835,7 +840,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tMorganella\tAmikacin\n'+
     '100\tMorganella\tCiprofloxacin\n'+
     '100\tMorganella\tTMP-SMX\n'+
-    '0\tMorganella\tNitrofurantoin\n'+
+    '0\tMorganella\tNitrofurantoin (uncomplicated UTI)\n'+
     '26\tProteus mirabilis\tNumber Tested\n'+
     '89\tProteus mirabilis\tAmpicillin/Amoxicillin\n'+
     '96\tProteus mirabilis\tAmpicillin-Sulbactam\n'+
@@ -849,7 +854,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '100\tProteus mirabilis\tAmikacin\n'+
     '92\tProteus mirabilis\tCiprofloxacin\n'+
     '89\tProteus mirabilis\tTMP-SMX\n'+
-    '0\tProteus mirabilis\tNitrofurantoin\n'+
+    '0\tProteus mirabilis\tNitrofurantoin (uncomplicated UTI)\n'+
     '2\tProteus vulgaris\tNumber Tested\n'+
     '0\tProteus vulgaris\tAmpicillin/Amoxicillin\n'+
     '87\tProteus vulgaris\tAmpicillin-Sulbactam\n'+
@@ -865,7 +870,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '83\tProteus vulgaris\tCiprofloxacin\n'+
     '100\tProteus vulgaris\tLevofloxacin\n'+
     '100\tProteus vulgaris\tTMP-SMX\n'+
-    '0\tProteus vulgaris\tNitrofurantoin\n'+
+    '0\tProteus vulgaris\tNitrofurantoin (uncomplicated UTI)\n'+
     '605\tPseudomonas aeruginosa\tNumber Tested\n'+
     '94\tPseudomonas aeruginosa\tPiperacillin-Tazobactam\n'+
     '84\tPseudomonas aeruginosa\tCefepime\n'+
@@ -913,7 +918,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '90\tSerratia\tCiprofloxacin\n'+
     '95\tSerratia\tLevofloxacin\n'+
     '97\tSerratia\tTMP-SMX\n'+
-    '0\tSerratia\tNitrofurantoin\n'+
+    '0\tSerratia\tNitrofurantoin (uncomplicated UTI)\n'+
     '49\tStenotrophomonas maltophilia\tNumber Tested\n'+
     '85\tStenotrophomonas maltophilia\tLevofloxacin\n'+
     '98\tStenotrophomonas maltophilia\tTMP-SMX\n'+
@@ -1003,7 +1008,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '100\tEnterococcus faecalis\tPenicillin G\n'+
     '17\tEnterococcus faecalis\tErythromycin\n'+
     '92\tEnterococcus faecalis\tLinezolid\n'+
-    '100\tEnterococcus faecalis\tNitrofurantoin\n'+
+    '100\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tEnterococcus faecalis\tVancomycin\n'+
     '83\tEnterococcus (unspeciated)\tNumber Tested\n'+
     '100\tEnterococcus (unspeciated)\tAmpicillin/Amoxicillin\n'+
@@ -1012,7 +1017,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '0\tEnterococcus (unspeciated)\tClindamycin\n'+
     '19\tEnterococcus (unspeciated)\tErythromycin\n'+
     '94\tEnterococcus (unspeciated)\tLinezolid\n'+
-    '96\tEnterococcus (unspeciated)\tNitrofurantoin\n'+
+    '96\tEnterococcus (unspeciated)\tNitrofurantoin (uncomplicated UTI)\n'+
     '98\tEnterococcus (unspeciated)\tVancomycin\n'+
     '237\tStaphylococcus aureus (all)\tNumber Tested\n'+
     '49\tStaphylococcus aureus (all)\tNafcillin/Oxacillin\n'+
@@ -1022,7 +1027,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '79\tStaphylococcus aureus (all)\tClindamycin\n'+
     '39\tStaphylococcus aureus (all)\tErythromycin\n'+
     '100\tStaphylococcus aureus (all)\tLinezolid\n'+
-    '100\tStaphylococcus aureus (all)\tRifampin\n'+
+    '100\tStaphylococcus aureus (all)\tRifampin (not for Staph monotherapy)\n'+
     '98\tStaphylococcus aureus (all)\tTMP-SMX\n'+
     '100\tStaphylococcus aureus (all)\tVancomycin\n'+
     '22\tStaphylococcus capitis\tNumber Tested\n'+
@@ -1033,8 +1038,8 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '76\tStaphylococcus capitis\tClindamycin\n'+
     '68\tStaphylococcus capitis\tErythromycin\n'+
     '100\tStaphylococcus capitis\tLinezolid\n'+
-    '100\tStaphylococcus capitis\tNitrofurantoin\n'+
-    '100\tStaphylococcus capitis\tRifampin\n'+
+    '100\tStaphylococcus capitis\tNitrofurantoin (uncomplicated UTI)\n'+
+    '100\tStaphylococcus capitis\tRifampin (not for Staph monotherapy)\n'+
     '100\tStaphylococcus capitis\tTMP-SMX\n'+
     '100\tStaphylococcus capitis\tVancomycin\n'+
     '31\tStaphylococcus hominis\tNumber Tested\n'+
@@ -1045,8 +1050,8 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '74\tStaphylococcus hominis\tClindamycin\n'+
     '45\tStaphylococcus hominis\tErythromycin\n'+
     '100\tStaphylococcus hominis\tLinezolid\n'+
-    '100\tStaphylococcus hominis\tNitrofurantoin\n'+
-    '100\tStaphylococcus hominis\tRifampin\n'+
+    '100\tStaphylococcus hominis\tNitrofurantoin (uncomplicated UTI)\n'+
+    '100\tStaphylococcus hominis\tRifampin (not for Staph monotherapy)\n'+
     '79\tStaphylococcus hominis\tTMP-SMX\n'+
     '100\tStaphylococcus hominis\tVancomycin\n'+
     '10\tStaphylococcus lugdunensis\tNumber Tested\n'+
@@ -1057,8 +1062,8 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '80\tStaphylococcus lugdunensis\tClindamycin\n'+
     '80\tStaphylococcus lugdunensis\tErythromycin\n'+
     '100\tStaphylococcus lugdunensis\tLinezolid\n'+
-    '100\tStaphylococcus lugdunensis\tNitrofurantoin\n'+
-    '90\tStaphylococcus lugdunensis\tRifampin\n'+
+    '100\tStaphylococcus lugdunensis\tNitrofurantoin (uncomplicated UTI)\n'+
+    '90\tStaphylococcus lugdunensis\tRifampin (not for Staph monotherapy)\n'+
     '100\tStaphylococcus lugdunensis\tTMP-SMX\n'+
     '100\tStaphylococcus lugdunensis\tVancomycin\n'+
     '37\tStaphylococcus, Coagulase Negative (epidermidis)\tNumber Tested\n'+
@@ -1069,12 +1074,12 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '70\tStaphylococcus, Coagulase Negative (epidermidis)\tClindamycin\n'+
     '57\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
     '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
-    '97\tStaphylococcus, Coagulase Negative (epidermidis)\tNitrofurantoin\n'+
-    '97\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin\n'+
+    '97\tStaphylococcus, Coagulase Negative (epidermidis)\tNitrofurantoin (uncomplicated UTI)\n'+
+    '97\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
     '60\tStaphylococcus, Coagulase Negative (epidermidis)\tTMP-SMX\n'+
     '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
     '12\tStreptococcus pneumoniae\tNumber Tested\n'+
-    '92\tStreptococcus pneumoniae\tPenicillin G\n'+
+    '92\tStreptococcus pneumoniae\tPenicillin G\tNon-Meningitis Sensitivity Only\n'+
     '100\tStreptococcus pneumoniae\tLevofloxacin\n'+
     '100\tStreptococcus pneumoniae\tMoxifloxacin\n'+
     '100\tStreptococcus pneumoniae\tLinezolid\n'+
@@ -1093,7 +1098,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '92\tCitrobacter freundii\tTobramycin\n'+
     '92\tCitrobacter freundii\tCiprofloxacin\n'+
     '92\tCitrobacter freundii\tLevofloxacin\n'+
-    '92\tCitrobacter freundii\tNitrofurantoin\n'+
+    '92\tCitrobacter freundii\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tCitrobacter freundii\tErtapenem\n'+
     '100\tCitrobacter freundii\tImipenem\n'+
     '83\tCitrobacter freundii\tTMP-SMX\n'+
@@ -1109,7 +1114,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '90\tEnterobacter cloacae\tCiprofloxacin\n'+
     '90\tEnterobacter cloacae\tLevofloxacin\n'+
     '83\tEnterobacter cloacae\tAztreonam\n'+
-    '33\tEnterobacter cloacae\tNitrofurantoin\n'+
+    '33\tEnterobacter cloacae\tNitrofurantoin (uncomplicated UTI)\n'+
     '95\tEnterobacter cloacae\tErtapenem\n'+
     '95\tEnterobacter cloacae\tImipenem\n'+
     '100\tEnterobacter cloacae\tMeropenem\n'+
@@ -1128,7 +1133,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '69\tEscheria coli\tCiprofloxacin\n'+
     '69\tEscheria coli\tLevofloxacin\n'+
     '96\tEscheria coli\tAztreonam\n'+
-    '98\tEscheria coli\tNitrofurantoin\n'+
+    '98\tEscheria coli\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tEscheria coli\tErtapenem\n'+
     '99\tEscheria coli\tImipenem\n'+
     '100\tEscheria coli\tMeropenem\n'+
@@ -1147,7 +1152,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '89\tKlebsiella pneumoniae\tCiprofloxacin\n'+
     '89\tKlebsiella pneumoniae\tLevofloxacin\n'+
     '91\tKlebsiella pneumoniae\tAztreonam\n'+
-    '28\tKlebsiella pneumoniae\tNitrofurantoin\n'+
+    '28\tKlebsiella pneumoniae\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tKlebsiella pneumoniae\tErtapenem\n'+
     '100\tKlebsiella pneumoniae\tImipenem\n'+
     '100\tKlebsiella pneumoniae\tMeropenem\n'+
@@ -1166,7 +1171,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '41\tMorganella\tCiprofloxacin\n'+
     '65\tMorganella\tLevofloxacin\n'+
     '86\tMorganella\tAztreonam\n'+
-    '0\tMorganella\tNitrofurantoin\n'+
+    '0\tMorganella\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tMorganella\tErtapenem\n'+
     '100\tMorganella\tMeropenem\n'+
     '41\tMorganella\tTMP-SMX\n'+
@@ -1184,7 +1189,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '82\tProteus mirabilis\tCiprofloxacin\n'+
     '82\tProteus mirabilis\tLevofloxacin\n'+
     '93\tProteus mirabilis\tAztreonam\n'+
-    '0\tProteus mirabilis\tNitrofurantoin\n'+
+    '0\tProteus mirabilis\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tProteus mirabilis\tErtapenem\n'+
     '100\tProteus mirabilis\tMeropenem\n'+
     '84\tProteus mirabilis\tTMP-SMX\n'+
@@ -1201,7 +1206,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '96\tPseudomonas aeruginosa\tTobramycin\n'+
     '82\tPseudomonas aeruginosa\tCiprofloxacin\n'+
     '77\tPseudomonas aeruginosa\tLevofloxacin\n'+
-    '0\tPseudomonas aeruginosa\tNitrofurantoin\n'+
+    '0\tPseudomonas aeruginosa\tNitrofurantoin (uncomplicated UTI)\n'+
     '96\tPseudomonas aeruginosa\tImipenem\n'+
     '95\tPseudomonas aeruginosa\tMeropenem\n'+
     '0\tPseudomonas aeruginosa\tTMP-SMX\n'+
@@ -1216,7 +1221,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '100\tSerratia marcescens\tTobramycin\n'+
     '100\tSerratia marcescens\tCiprofloxacin\n'+
     '100\tSerratia marcescens\tLevofloxacin\n'+
-    '0\tSerratia marcescens\tNitrofurantoin\n'+
+    '0\tSerratia marcescens\tNitrofurantoin (uncomplicated UTI)\n'+
     '100\tSerratia marcescens\tErtapenem\n'+
     '100\tSerratia marcescens\tImipenem\n'+
     '100\tSerratia marcescens\tTMP-SMX\n'+
@@ -1253,7 +1258,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '89\tEnterococcus (unspeciated)\tAmpicillin/Amoxicillin\n'+
     '93\tEnterococcus (unspeciated)\tVancomycin\n'+
     '20\tEnterococcus (unspeciated)\tDoxycycline\n'+
-    '90\tEnterococcus (unspeciated)\tNitrofurantoin\n'+
+    '90\tEnterococcus (unspeciated)\tNitrofurantoin (uncomplicated UTI)\n'+
     '66\tEnterococcus (unspeciated)\tCiprofloxacin\n'+
     '100\tEnterococcus (unspeciated)\tLinezolid\n'+
     '78\tEnterococcus faecalis\tNumber Tested\n'+
@@ -1345,7 +1350,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '91\tCitrobacter freundii\tCiprofloxacin\n'+
     '93\tCitrobacter freundii\tLevofloxacin\n'+
     '72\tCitrobacter freundii\tTMP-SMX\n'+
-    '79\tCitrobacter freundii\tNitrofurantoin\n'+
+    '79\tCitrobacter freundii\tNitrofurantoin (uncomplicated UTI)\n'+
     '57\tCitrobacter koseri\tNumber Tested\n'+
     '0\tCitrobacter koseri\tAmpicillin/Amoxicillin\n'+
     '0\tCitrobacter koseri\tAmpicillin-Sulbactam\n'+
@@ -1362,7 +1367,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '100\tCitrobacter koseri\tCiprofloxacin\n'+
     '100\tCitrobacter koseri\tLevofloxacin\n'+
     '98\tCitrobacter koseri\tTMP-SMX\n'+
-    '40\tCitrobacter koseri\tNitrofurantoin\n'+
+    '40\tCitrobacter koseri\tNitrofurantoin (uncomplicated UTI)\n'+
     '95\tEnterobacter aerogenes\tNumber Tested\n'+
     '0\tEnterobacter aerogenes\tAmpicillin/Amoxicillin\n'+
     '0\tEnterobacter aerogenes\tAmpicillin-Sulbactam\n'+
@@ -1379,7 +1384,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '99\tEnterobacter aerogenes\tCiprofloxacin\n'+
     '98\tEnterobacter aerogenes\tLevofloxacin\n'+
     '97\tEnterobacter aerogenes\tTMP-SMX\n'+
-    '10\tEnterobacter aerogenes\tNitrofurantoin\n'+
+    '10\tEnterobacter aerogenes\tNitrofurantoin (uncomplicated UTI)\n'+
     '165\tEnterobacter cloacae\tNumber Tested\n'+
     '0\tEnterobacter cloacae\tAmpicillin/Amoxicillin\n'+
     '0\tEnterobacter cloacae\tAmpicillin-Sulbactam\n'+
@@ -1396,7 +1401,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '95\tEnterobacter cloacae\tCiprofloxacin\n'+
     '95\tEnterobacter cloacae\tLevofloxacin\n'+
     '96\tEnterobacter cloacae\tTMP-SMX\n'+
-    '37\tEnterobacter cloacae\tNitrofurantoin\n'+
+    '37\tEnterobacter cloacae\tNitrofurantoin (uncomplicated UTI)\n'+
     '2497\tEscheria coli\tNumber Tested\n'+
     '48\tEscheria coli\tAmpicillin/Amoxicillin\n'+
     '61\tEscheria coli\tAmpicillin-Sulbactam\n'+
@@ -1414,7 +1419,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '78\tEscheria coli\tLevofloxacin\n'+
     '64\tEscheria coli\tTMP-SMX\n'+
     '61\tEscheria coli\tCephalexin\n'+
-    '95\tEscheria coli\tNitrofurantoin\n'+
+    '95\tEscheria coli\tNitrofurantoin (uncomplicated UTI)\n'+
     '102\tKlebsiella oxytoca\tNumber Tested\n'+
     '0\tKlebsiella oxytoca\tAmpicillin/Amoxicillin\n'+
     '75\tKlebsiella oxytoca\tAmpicillin-Sulbactam\n'+
@@ -1431,7 +1436,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '98\tKlebsiella oxytoca\tCiprofloxacin\n'+
     '99\tKlebsiella oxytoca\tLevofloxacin\n'+
     '91\tKlebsiella oxytoca\tTMP-SMX\n'+
-    '80\tKlebsiella oxytoca\tNitrofurantoin\n'+
+    '80\tKlebsiella oxytoca\tNitrofurantoin (uncomplicated UTI)\n'+
     '459\tKlebsiella pneumoniae\tNumber Tested\n'+
     '0\tKlebsiella pneumoniae\tAmpicillin/Amoxicillin\n'+
     '85\tKlebsiella pneumoniae\tAmpicillin-Sulbactam\n'+
@@ -1448,7 +1453,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '92\tKlebsiella pneumoniae\tCiprofloxacin\n'+
     '92\tKlebsiella pneumoniae\tLevofloxacin\n'+
     '86\tKlebsiella pneumoniae\tTMP-SMX\n'+
-    '25\tKlebsiella pneumoniae\tNitrofurantoin\n'+
+    '25\tKlebsiella pneumoniae\tNitrofurantoin (uncomplicated UTI)\n'+
     '36\tMorganella\tNumber Tested\n'+
     '0\tMorganella\tAmpicillin/Amoxicillin\n'+
     '9\tMorganella\tAmpicillin-Sulbactam\n'+
@@ -1464,7 +1469,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '11\tMorganella\tCiprofloxacin\n'+
     '83\tMorganella\tLevofloxacin\n'+
     '61\tMorganella\tTMP-SMX\n'+
-    '0\tMorganella\tNitrofurantoin\n'+
+    '0\tMorganella\tNitrofurantoin (uncomplicated UTI)\n'+
     '233\tProteus mirabilis\tNumber Tested\n'+
     '77\tProteus mirabilis\tAmpicillin/Amoxicillin\n'+
     '87\tProteus mirabilis\tAmpicillin-Sulbactam\n'+
@@ -1480,7 +1485,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '87\tProteus mirabilis\tCiprofloxacin\n'+
     '89\tProteus mirabilis\tLevofloxacin\n'+
     '75\tProteus mirabilis\tTMP-SMX\n'+
-    '0\tProteus mirabilis\tNitrofurantoin\n'+
+    '0\tProteus mirabilis\tNitrofurantoin (uncomplicated UTI)\n'+
     '4\tProteus vulgaris\tNumber Tested\n'+
     '0\tProteus vulgaris\tAmpicillin/Amoxicillin\n'+
     '50\tProteus vulgaris\tAmpicillin-Sulbactam\n'+
@@ -1495,7 +1500,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '100\tProteus vulgaris\tCiprofloxacin\n'+
     '100\tProteus vulgaris\tLevofloxacin\n'+
     '100\tProteus vulgaris\tTMP-SMX\n'+
-    '0\tProteus vulgaris\tNitrofurantoin\n'+
+    '0\tProteus vulgaris\tNitrofurantoin (uncomplicated UTI)\n'+
     '372\tPseudomonas aeruginosa CF mucoid\tNumber Tested\n'+
     '73\tPseudomonas aeruginosa CF mucoid\tTicarcillin\n'+
     '79\tPseudomonas aeruginosa CF mucoid\tPiperacillin\n'+
@@ -1541,7 +1546,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '89\tSerratia marcescens\tCiprofloxacin\n'+
     '96\tSerratia marcescens\tLevofloxacin\n'+
     '98\tSerratia marcescens\tTMP-SMX\n'+
-    '0\tSerratia marcescens\tNitrofurantoin\n'+
+    '0\tSerratia marcescens\tNitrofurantoin (uncomplicated UTI)\n'+
     '103\tStenotrophomonas maltophilia\tNumber Tested\n'+
     '50\tStenotrophomonas maltophilia\tTicarcillin-Clavulanate\n'+
     '87\tStenotrophomonas maltophilia\tLevofloxacin\n'+

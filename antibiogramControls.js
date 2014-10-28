@@ -249,7 +249,8 @@ function printSensitivityTable(theForm)
             for( var j=0; j < drugListField.options.length; j++ )
             {
                 var drug = drugListField.options[j].value;
-                var sensValue = sensTable[drug];
+                var sensValue = null;
+                if ( drug in sensTable ) { sensValue = sensTable[drug]['value']; }
                 if ( !sensValue && sensValue != 0 ) { sensValue = '?'; }
                 print( sensValue );
                 print(' ');
@@ -319,14 +320,16 @@ function generateSensitivityDataTable(theForm)
         var numTested = null;   // Default to unknown if based on general reference source
         if ( NUMBER_TESTED_KEY in bugSensTable )
         {
-            numTested = bugSensTable[NUMBER_TESTED_KEY];
+            numTested = bugSensTable[NUMBER_TESTED_KEY]['value'];
             if ( !totalNumTested ) { totalNumTested = 0; }
             totalNumTested += numTested;
         }
         for( var j=0; j < drugListField.options.length; j++ )
         {
             var drug = drugListField.options[j].value;
-            var sensValue = bugSensTable[drug];
+            var valueMap = bugSensTable[drug];
+            var sensValue = null;
+            if ( valueMap ) { sensValue = valueMap['value']; }
 
             if ( maxSensPerBug[bug] == null || sensValue > maxSensPerBug[bug] )
             {
@@ -387,7 +390,7 @@ function generateSensitivityDataTable(theForm)
             var numTested = null;   // Default to unknown if based on general reference source
             if ( NUMBER_TESTED_KEY in bugSensTable )
             {
-                numTested = bugSensTable[NUMBER_TESTED_KEY];
+                numTested = bugSensTable[NUMBER_TESTED_KEY]['value'];
             }
             dataRow.push(numTested);
         }
@@ -398,8 +401,8 @@ function generateSensitivityDataTable(theForm)
             var drug = drugListField.options[j].value;
             if ( minSensPerDrug[drug] == null ) { continue; }   // Skip cols with no data
 
-            var sensValue = bugSensTable[drug];
-            dataRow.push(sensValue);
+            var valueMap = bugSensTable[drug];
+            dataRow.push(valueMap);
         }
     }
 
@@ -448,8 +451,9 @@ function generateSensitivityTableHTML(theForm)
         // Iterate through drug columns / cells
         for( var j=0; j < dataRow.length; j++ )
         {
-            var dataValue = dataRow[j];
-            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue)+'</td>');
+            var valueMap = dataRow[j];
+            var dataValue = (valueMap ? valueMap['value'] : null);
+            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue, valueMap)+'</td>');
         }
         tableHTML.push('</tr>');
     }
@@ -482,13 +486,18 @@ function formatHeader(inText)
 /**
  * Format cell value.  Usually just direct, but if null / undefined, then '?'
  */
-function formatValue(inText)
+function formatValue(inText, valueMap)
 {
+    var formatStr = inText;
     if ( !inText && inText != 0 )
     {
-        return '?';
+        formatStr = '?';
     }
-    return inText;
+    if ( valueMap && valueMap['comment'] )
+    {	// Comment attached to data value.  Present as link pop-up information
+    	formatStr = '<a href="javascript: println(\''+valueMap['comment']+'\'); alert(\''+valueMap['comment']+'\');">'+formatStr+'*</a>';
+    }
+    return formatStr;
 }
 
 /**
@@ -581,6 +590,8 @@ function submitSensitivityData(dataLoadField, clearPriorData)
                 var sens = parseInt(dataChunks[0]);
                 var bug = dataChunks[1];
                 var drug = dataChunks[2];
+                var comment = null;
+                if ( dataChunks.length > 3 ) { comment = dataChunks[3]; }	// Optional footnote / comment
 
                 if ( isNaN(sens) )
                 {
@@ -600,7 +611,7 @@ function submitSensitivityData(dataLoadField, clearPriorData)
                     {
                         SENSITIVITY_TABLE_BY_BUG[bug] = {};
                     }
-                    SENSITIVITY_TABLE_BY_BUG[bug][drug] = sens;
+                    SENSITIVITY_TABLE_BY_BUG[bug][drug] = {'value':sens, 'comment':comment};
                 }
             }
         }
