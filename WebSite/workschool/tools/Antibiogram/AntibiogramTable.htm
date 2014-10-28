@@ -1,8 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<!-- saved from url=(0071)http://www.stanford.edu/~jonc101/tools/Antibiogram/AntibiogramTable.htm -->
-<HTML><HEAD><META content="IE=5.0000" http-equiv="X-UA-Compatible">
- <TITLE>Interactive Antibiogram</TITLE> 
-<META http-equiv="Content-Type" content="text/html; charset=windows-1252"><!--
+<TITLE>Interactive Antibiogram</TITLE>
+<!--
 Interactive Antibiogram
 Jonathan H. Chen
 jonc101 at gmail.com
@@ -15,41 +12,40 @@ jonc101 at stanford.edu
  * See linked data file for additional data source references
  *
  */
---> 
-<LINK href="AntibiogramTable_files/antibiogramStyles.css" rel="stylesheet" type="text/css"> 
-<SCRIPT language="JavaScript" src="AntibiogramTable_files/toolkit.js"></SCRIPT>
- 
-<SCRIPT language="JavaScript" src="AntibiogramTable_files/Color.js"></SCRIPT>
- 
-<SCRIPT language="JavaScript" src="AntibiogramTable_files/antibiogramData.js"></SCRIPT>
- 
-<SCRIPT language="JavaScript" src="AntibiogramTable_files/antibiogramControls.js"></SCRIPT>
- 
-<META name="GENERATOR" content="MSHTML 10.00.9200.16635"></HEAD> 
+-->
+<LINK href="antibiogramStyles.css" rel="stylesheet" type="text/css">
+<SCRIPT language="JavaScript" src="../lib/toolkit.js"></SCRIPT>
+
+<SCRIPT language="JavaScript" src="../lib/Color.js"></SCRIPT>
+
+<SCRIPT language="JavaScript" src="antibiogramData.js"></SCRIPT>
+
+<SCRIPT language="JavaScript" src="antibiogramControls.js"></SCRIPT>
+
 <BODY topmargin="0" leftmargin="0" onload="initialize(document.forms[0]);">
-<FORM name="analysisForm" onsubmit="return false;"><INPUT name="summary" type="hidden"> 
-    
+<FORM name="analysisForm" onsubmit="return false;"><INPUT name="summary" type="hidden">
+
 <DIV align="center">
 <TABLE border="0" cellspacing="2" cellpadding="2">
   <TBODY>
   <TR>
-    <TD align="center" class="instructionCell"><B><I>Step 1</I></B><BR>Select 
+    <TD align="center" class="instructionCell"><B><I>Step 1</I></B><BR>Select
       Antibiogram</TD>
-    <TD align="center" class="headerRow" colspan="6"><SELECT class="headerRow" 
-      style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);"><OPTION 
-        value="default">Default Antibiogram (Sanford Guide 2010)                 
-            <OPTION value="Stanford2012">Stanford (SUH) 2012                     
-        <OPTION value="Stanford2011">Stanford (SUH) 2011                     
-        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency 
+    <TD align="center" class="headerRow" colspan="6"><SELECT class="headerRow"
+      style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);"><OPTION
+        value="default">Default Antibiogram (Sanford Guide 2010)
+            <OPTION value="Stanford2012">Stanford (SUH) 2012
+        <OPTION value="Stanford2011">Stanford (SUH) 2011
+        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency
         Department                 </OPTION></SELECT>             </TD></TR>
   <TR>
     <TH class="instructionCell"><I>Step 2</I></TH>
     <TH class="headerCol" colspan="3">Organism</TH>
     <TH class="headerCol" colspan="3">Antimicrobial</TH></TR>
   <TR>
-    <TD align="center" class="instructionCell">                Select Organism 
-      Groups of Interest                 <BR><BR>                (Optional)<BR>  
-                    Select Antimicrobial Subsets, e.g., "Oral Available"         
+    <TD align="center" class="instructionCell">                Select Organism
+      Groups of Interest                 <BR><BR>                (Optional)<BR>
+                    Select Antimicrobial Subsets, e.g., "Oral Available"
           </TD>
     <TD align="center" colspan="3">
       <TABLE width="100%" border="0">
@@ -99,59 +95,59 @@ jonc101 at stanford.edu
     <TH class="instructionCell"><I>Step 3</I></TH>
     <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].bugAvailable, true)">Available</A></TD>
     <TD class="headerCol">&nbsp;</TD>
-    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].bugSelected, true)">Selected</A> 
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].bugSelected, true)">Selected</A>
       <A href="javascript:clearSelectedBugs();">(Clear)</A></TD>
     <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].drugAvailable, true)">Available</A></TD>
     <TD class="headerCol">&nbsp;</TD>
-    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].drugSelected, true)">Selected</A> 
+    <TD align="center" class="headerCol"><A href="javascript:selectAllList(document.forms[0].drugSelected, true)">Selected</A>
       <A href="javascript:clearSelectedDrugs();">(Clear)</A></TD></TR>
   <TR valign="middle">
-    <TD align="center" class="instructionCell">                (Optional)<BR>  
-                    Customize List of Selected Organisms and Antimicrobials      
+    <TD align="center" class="instructionCell">                (Optional)<BR>
+                    Customize List of Selected Organisms and Antimicrobials
              </TD>
-    <TD align="center"><SELECT name="bugAvailable" style="width: 280px;" 
-      ondblclick="selectMoveCopy( this, this.form.bugSelected, true )" size="10" 
+    <TD align="center"><SELECT name="bugAvailable" style="width: 280px;"
+      ondblclick="selectMoveCopy( this, this.form.bugSelected, true )" size="10"
       multiple=""></SELECT>             </TD>
-    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugAvailable, this.form.bugSelected, true )" type="button" value="(+)"> 
-                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugSelected, null, false )" type="button" value="(-)"> 
+    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugAvailable, this.form.bugSelected, true )" type="button" value="(+)">
+                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.bugSelected, null, false )" type="button" value="(-)">
                   </TD>
-    <TD align="center"><SELECT name="bugSelected" style="width: 150px;" 
-      ondblclick="selectMoveCopy( this, null, false )" size="10" 
+    <TD align="center"><SELECT name="bugSelected" style="width: 150px;"
+      ondblclick="selectMoveCopy( this, null, false )" size="10"
       multiple=""></SELECT>             </TD>
-    <TD align="center"><SELECT name="drugAvailable" style="width: 280px;" 
-      ondblclick="selectMoveCopy( this, this.form.drugSelected, true )" size="10" 
+    <TD align="center"><SELECT name="drugAvailable" style="width: 280px;"
+      ondblclick="selectMoveCopy( this, this.form.drugSelected, true )" size="10"
       multiple=""></SELECT>             </TD>
-    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugAvailable, this.form.drugSelected, true )" type="button" value="(+)"> 
-                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugSelected, null, false )" type="button" value="(-)"> 
+    <TD align="center"><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugAvailable, this.form.drugSelected, true )" type="button" value="(+)">
+                      <BR><BR><INPUT class="iconButton" onclick="selectMoveCopy( this.form.drugSelected, null, false )" type="button" value="(-)">
                   </TD>
-    <TD align="center"><SELECT name="drugSelected" style="width: 150px;" 
-      ondblclick="selectMoveCopy( this, null, false )" size="10" 
+    <TD align="center"><SELECT name="drugSelected" style="width: 150px;"
+      ondblclick="selectMoveCopy( this, null, false )" size="10"
       multiple=""></SELECT>             </TD></TR>
   <TR>
-    <TD align="center" class="instructionCell"><B><I>Step 
+    <TD align="center" class="instructionCell"><B><I>Step
       4</I></B><BR>Generate Table</TD>
-    <TD align="center" class="headerRow" 
-colspan="6"><INPUT tabindex="500" style="font-size: 16pt;" onclick="doAnalysis(this.form);" type="submit" value="Generate Sensitivity Table"> 
+    <TD align="center" class="headerRow"
+colspan="6"><INPUT tabindex="500" style="font-size: 16pt;" onclick="doAnalysis(this.form);" type="submit" value="Generate Sensitivity Table">
                   </TD></TR></TBODY></TABLE>
 <DIV id="sensitivityTableSpace"></DIV><BR><BR>
 <TABLE border="0" cellspacing="2" cellpadding="2">
   <TBODY>
   <TR valign="top">
-    <TD width="50%" align="center"><TEXTAREA name="feedback" rows="10" cols="80" wrap="off"></TEXTAREA> 
+    <TD width="50%" align="center"><TEXTAREA name="feedback" rows="10" cols="80" wrap="off"></TEXTAREA>
                       <BR><I>Debug Feedback Area</I>             </TD>
-    <TD width="50%" align="center"><TEXTAREA name="dataLoad" rows="10" cols="80" wrap="off"></TEXTAREA> 
-                      <INPUT onclick="submitSensitivityData(this.form.dataLoad);" type="button" value="Add Custom Sensitivity Data"> 
+    <TD width="50%" align="center"><TEXTAREA name="dataLoad" rows="10" cols="80" wrap="off"></TEXTAREA>
+                      <INPUT onclick="submitSensitivityData(this.form.dataLoad);" type="button" value="Add Custom Sensitivity Data">
                   </TD></TR></TBODY></TABLE></DIV>
 <UL>
-  <LI><A 
-  href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford 
-  Antibiogram</A> 
-  <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo 
-  Alto VA 2011 Antibiogram</A> 
-  <LI><A 
-  href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard 
-  Childrens Hospital Antibiogram</A> 
-  <LI><A href="http://www.sanfordguide.com/index.html">Sanford Guide to 
-  Antimicrobial Therapy</A><BR><I>(Qualitatively assigns sensitivities as +, 
-  +/-, -.  These are arbitrarily assigned sensitivity values of 90, 50, and 0 in 
+  <LI><A
+  href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford
+  Antibiogram</A>
+  <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo
+  Alto VA 2011 Antibiogram</A>
+  <LI><A
+  href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard
+  Childrens Hospital Antibiogram</A>
+  <LI><A href="http://www.sanfordguide.com/index.html">Sanford Guide to
+  Antimicrobial Therapy</A><BR><I>(Qualitatively assigns sensitivities as +,
+  +/-, -.  These are arbitrarily assigned sensitivity values of 90, 50, and 0 in
   this table.)</I> </LI></UL></FORM></BODY></HTML>
