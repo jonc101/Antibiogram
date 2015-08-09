@@ -31,13 +31,15 @@ jonc101 at stanford.edu
   <TR>
     <TD align="center" class="instructionCell"><B><I>Step 1</I></B><BR>Select
       Antibiogram</TD>
-    <TD align="center" class="headerRow" colspan="6"><SELECT class="headerRow"
-      style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);"><OPTION
-        value="default">Default Antibiogram (Sanford Guide 2010)
-            <OPTION value="Stanford2012">Stanford (SUH) 2012
+    <TD align="center" class="headerRow" colspan="6">
+      <SELECT class="headerRow" style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);">
+        <OPTION value="Stanford2012">Stanford (SUH) 2012
         <OPTION value="Stanford2011">Stanford (SUH) 2011
-        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency
-        Department                 </OPTION></SELECT>             </TD></TR>
+        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency Department</OPTION>
+        <OPTION value="Sanford2010">Sanford Guide (2010)
+      </SELECT>
+    </TD>
+  </TR>
   <TR>
     <TH class="instructionCell"><I>Step 2</I></TH>
     <TH class="headerCol" colspan="3">Organism</TH>
@@ -129,25 +131,31 @@ jonc101 at stanford.edu
     <TD align="center" class="headerRow"
 colspan="6"><INPUT tabindex="500" style="font-size: 16pt;" onclick="doAnalysis(this.form);" type="submit" value="Generate Sensitivity Table">
                   </TD></TR></TBODY></TABLE>
+
 <DIV id="sensitivityTableSpace"></DIV><BR><BR>
 <TABLE border="0" cellspacing="2" cellpadding="2">
   <TBODY>
   <TR valign="top">
-    <TD width="50%" align="center"><TEXTAREA name="feedback" rows="10" cols="80" wrap="off"></TEXTAREA>
-                      <BR><I>Debug Feedback Area</I>             </TD>
-    <TD width="50%" align="center"><TEXTAREA name="dataLoad" rows="10" cols="80" wrap="off"></TEXTAREA>
-                      <INPUT onclick="submitSensitivityData(this.form.dataLoad);" type="button" value="Add Custom Sensitivity Data">
-                  </TD></TR></TBODY></TABLE></DIV>
+    <TD width="50%" align="center">
+        <TEXTAREA name="feedback" rows="10" cols="80" wrap="off"></TEXTAREA><BR>
+        <I>Debug Feedback Area</I>
+    </TD>
+    <TD width="50%" align="center">
+        <TEXTAREA name="dataLoad" rows="10" cols="80" wrap="off"></TEXTAREA>
+        <INPUT onclick="submitSensitivityData(this.form.dataLoad);" type="button" value="Add Custom Sensitivity Data">
+    </TD>
+  </TR>
+  </TBODY>
+</TABLE>
+</DIV>
 <UL>
-  <LI><A
-  href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford
-  Antibiogram</A>
-  <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo
-  Alto VA 2011 Antibiogram</A>
-  <LI><A
-  href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard
-  Childrens Hospital Antibiogram</A>
-  <LI><A href="http://www.sanfordguide.com/index.html">Sanford Guide to
-  Antimicrobial Therapy</A><BR><I>(Qualitatively assigns sensitivities as +,
-  +/-, -.  These are arbitrarily assigned sensitivity values of 90, 50, and 0 in
-  this table.)</I> </LI></UL></FORM></BODY></HTML>
+  <LI><A href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford Antibiogram</A>
+  <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo Alto VA 2011 Antibiogram</A>
+  <LI><A href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard Childrens Hospital Antibiogram</A>
+  <LI><A href="http://www.sanfordguide.com/index.html">Sanford Guide to Antimicrobial Therapy</A><BR>
+    <I>(Qualitatively assigns sensitivities as +, +/-, -.  )</I>
+  </LI>
+</UL>
+</FORM>
+</BODY>
+</HTML>

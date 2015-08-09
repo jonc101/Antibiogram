@@ -16,7 +16,7 @@ var SENSITIVITY_COLOR_UNKNOWN = new Color('#f0f0f0');
 function initialize(theForm)
 {
     // Reset the data load field to default data
-    loadSensitivityData( theForm.dataLoad, "default", true );
+    loadSensitivityData( theForm.dataLoad, "default");
 
     updateBugList(theForm);
     updateDrugList(theForm);
@@ -328,8 +328,7 @@ function generateSensitivityDataTable(theForm)
         {
             var drug = drugListField.options[j].value;
             var valueMap = bugSensTable[drug];
-            var sensValue = null;
-            if ( valueMap ) { sensValue = valueMap['value']; }
+            var sensValue = (valueMap && (valueMap['value'] || valueMap['value']==0 ) ? valueMap['value'] : valueMap);
 
             if ( maxSensPerBug[bug] == null || sensValue > maxSensPerBug[bug] )
             {
@@ -354,6 +353,7 @@ function generateSensitivityDataTable(theForm)
     if ( totalNumTested ) { colHeaders.push('Isolates Tested'); } // Only show if have data
     colHeaders.push('ALL DRUGS');
 
+    rowHeaders.push('ALL BUGS');
     dataRow = new Array();
     dataTable.push(dataRow);
     if ( totalNumTested ) { dataRow.push(totalNumTested); }
@@ -367,7 +367,6 @@ function generateSensitivityDataTable(theForm)
     }
 
     // Core data table
-    rowHeaders.push('ALL BUGS');
     for( var i=0; i < bugListField.options.length; i++ )
     {
         var bug = bugListField.options[i].value;
@@ -420,6 +419,9 @@ function generateSensitivityTableHTML(theForm)
     var colHeaders = dataTuple[1];
     var rowHeaders = dataTuple[2];
 
+	// Determine if have isolates tested counts from real data, or more qualitative data
+	var haveIsolatesTested = ( colHeaders.indexOf('Isolates Tested') > -1 );
+
     // Now actually adapt the data table into HTML presented form
     var tableHTML = new Array();
 
@@ -452,8 +454,9 @@ function generateSensitivityTableHTML(theForm)
         for( var j=0; j < dataRow.length; j++ )
         {
             var valueMap = dataRow[j];
-            var dataValue = (valueMap ? valueMap['value'] : null);
-            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue, valueMap)+'</td>');
+            var dataValue = (valueMap && (valueMap['value'] || valueMap['value']==0)? valueMap['value'] : valueMap);
+            
+            tableHTML.push('<td align=center style="background-color: '+cellColorPerValue(dataValue)+'">'+formatValue(dataValue, valueMap, !haveIsolatesTested)+'</td>');
         }
         tableHTML.push('</tr>');
     }
@@ -485,14 +488,25 @@ function formatHeader(inText)
 
 /**
  * Format cell value.  Usually just direct, but if null / undefined, then '?'
+ * If qualitative set, then look for broad values to label as just +, +/-, or -
  */
-function formatValue(inText, valueMap)
+function formatValue(inText, valueMap, qualitative)
 {
     var formatStr = inText;
     if ( !inText && inText != 0 )
     {
         formatStr = '?';
     }
+    else if ( qualitative )
+    {
+    	if 		( inText >= DEFAULT_SENSITIVITY_POSITIVE ) { formatStr = '+'; }
+    	else if ( inText <= DEFAULT_SENSITIVITY_NEGATIVE ) { formatStr = '-'; }
+    	else // ( inText ~ DEFAULT_SENSITIVITY_MODERATE )
+    	{
+    		formatStr = '+/-';
+    	}
+    }
+    
     if ( valueMap && valueMap['comment'] )
     {	// Comment attached to data value.  Present as link pop-up information
     	formatStr = '<a href="javascript: println(\''+valueMap['comment']+'\'); alert(\''+valueMap['comment']+'\');">'+formatStr+'*</a>';
