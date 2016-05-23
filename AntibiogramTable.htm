@@ -32,11 +32,7 @@ jonc101 at stanford.edu
     <TD align="center" class="instructionCell"><B><I>Step 1</I></B><BR>Select
       Antibiogram</TD>
     <TD align="center" class="headerRow" colspan="6">
-      <SELECT class="headerRow" style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);">
-        <OPTION value="Stanford2012">Stanford (SUH) 2012
-        <OPTION value="Stanford2011">Stanford (SUH) 2011
-        <OPTION value="PAVA2011-ED">Palo Alto VA (PAVA) 2011 - Emergency Department</OPTION>
-        <OPTION value="Sanford2010">Sanford Guide (2010)
+      <SELECT name="antibiogramSelect" class="headerRow" style="border: 0px solid black; font-size: 16pt;" onchange="loadSensitivityData(this.form.dataLoad, this.options[this.selectedIndex].value);">
       </SELECT>
     </TD>
   </TR>
@@ -148,7 +144,10 @@ colspan="6"><INPUT tabindex="500" style="font-size: 16pt;" onclick="doAnalysis(t
   </TBODY>
 </TABLE>
 </DIV>
+
 <UL>
+      <b>References</b>
+  <LI><A href="http://med.stanford.edu/bugsanddrugs.html">Stanford Antibiotic Stewardship Resources</A>
   <LI><A href="http://lane.stanford.edu/biomed-resources/antibiograms-shc.html">Stanford Antibiogram</A>
   <LI><A href="http://errolozdalga.com/medicine/pages/OtherPages/PAVAAntibiogram.html">Palo Alto VA 2011 Antibiogram</A>
   <LI><A href="http://lane.stanford.edu/biomed-resources/antibiograms-lpch.html">Lucille-Packard Childrens Hospital Antibiogram</A>

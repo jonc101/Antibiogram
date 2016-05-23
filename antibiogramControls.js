@@ -18,6 +18,7 @@ function initialize(theForm)
     // Reset the data load field to default data
     loadSensitivityData( theForm.dataLoad, "default");
 
+    updateAntibiogramList(theForm);
     updateBugList(theForm);
     updateDrugList(theForm);
 }
@@ -35,6 +36,27 @@ function clearSelectedDrugs()
     var theForm = document.forms[0];
     theForm.drugSelected.options.length = 0;
 }
+
+
+/**
+ * Reset the available antibiogram list based on SENSITIVE_DATA_PER_SOURCE from data file
+ */
+function updateAntibiogramList(theForm)
+{
+    // Populate list of antibiograms to choose from
+    for(var sourceKey in SENSITIVITY_DATA_PER_SOURCE)
+    {
+        if (sourceKey != 'default')
+        {
+            var option = document.createElement('option');
+            option.value = sourceKey;
+            option.text = sourceKey;
+            option.defaultSelected = ( sourceKey == DEFAULT_SOURCE );
+            theForm.antibiogramSelect.add(option);
+        }
+    }
+}
+
 
 /**
  * Reset the available and selected bug lists to match any category selections

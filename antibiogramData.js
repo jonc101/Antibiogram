@@ -497,7 +497,7 @@ for( var i=0; i < BUG_LIST.length; i++ )
 }
 */
 
-SENSITIVITY_DATA_PER_SOURCE["Sanford2010"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["Sanford Guide 2010"] = ''+
 	'90\tAcinetobacter\tAmikacin\n'+
 	'0\tAcinetobacter\tAmoxicillin-Clavulanate\n'+
 	'90\tAcinetobacter\tAmpicillin-Sulbactam\n'+
@@ -3119,7 +3119,7 @@ SENSITIVITY_DATA_PER_SOURCE["Sanford2010"] = ''+
 	'0\tZygomycetes (Absidia, Mucor, Rhizopus)\tVoriconazole'+
 	'';
 
-SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2011"] = ''+
     '322\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
     '107\tStreptococcus viridans Group\tNumber Tested\n'+
     '85\tStreptococcus pneumoniae\tNumber Tested\n'+
@@ -3551,7 +3551,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2011"] = ''+
     '4\tCandida krusei\tNumber Tested\n'+
     '23\tCandida (other)\tNumber Tested\n'+
     '';
-SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ED) 2011"] = ''+
     '12\tEnterococcus faecalis\tNumber Tested\n'+
     '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
     '100\tEnterococcus faecalis\tPenicillin G\n'+
@@ -3778,7 +3778,7 @@ SENSITIVITY_DATA_PER_SOURCE["PAVA2011-ED"] = ''+
     '90\tStenotrophomonas maltophilia\tTMP-SMX\n'+
     '';
 
-SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2012"] = ''+
     '210\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
     '100\tStreptococcus Group B (agalactiae)\tPenicillin G\n'+
     '100\tStreptococcus Group B (agalactiae)\tAmpicillin/Amoxicillin\n'+
@@ -4203,4 +4203,6 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford2012"] = ''+
     '95\tPeptostreptococcus\tMetronidazole\n'+
 
     '';
-SENSITIVITY_DATA_PER_SOURCE["default"] = SENSITIVITY_DATA_PER_SOURCE["Stanford2012"];
+
+DEFAULT_SOURCE = "Stanford (SUH) 2012";
+SENSITIVITY_DATA_PER_SOURCE["default"] = SENSITIVITY_DATA_PER_SOURCE[DEFAULT_SOURCE];
