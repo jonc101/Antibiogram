@@ -278,6 +278,8 @@ var BUG_LIST =
         'Prevotella melaninogenica',
         'Clostridium difficile (not Enterocolitis)',
         'Clostridium (not difficile)',
+        'Clostridium perfringens',
+        'Clostridium (not perfringens)',
         'Peptostreptococcus',
 
         // Additional elements from local Antibiograms
@@ -300,12 +302,14 @@ var BUG_LIST =
         'Bacteroides (not fragilis)',
         'Gram Negative Rods (anaerobes, other)',
         'Gram Positive Rods (anaerobes)',
+        'Gram Positive Cocci (anaerobes)',
         'Campylobacter',
 
         'Candida albicans',
         'Candida glabrata',
         'Candida parapsilosis',
         'Candida krusei',
+        'Candida tropicalis',
         'Candida (other)',
 
         'Cryptococcus neoformans',
@@ -408,6 +412,8 @@ var PROPERTIES_BY_BUG =
         'Prevotella melaninogenica': ['Anaerobe'],
         'Clostridium difficile (not Enterocolitis)': ['Anaerobe','Gram Positive Rods'],
         'Clostridium (not difficile)': ['Anaerobe','Gram Positive Rods'],
+        'Clostridium perfringens': ['Anaerobe','Gram Positive Rods'],
+        'Clostridium (not perfringens)': ['Anaerobe','Gram Positive Rods'],
         'Peptostreptococcus': ['Anaerobe'],
 
 
@@ -430,12 +436,15 @@ var PROPERTIES_BY_BUG =
         'Bacteroides (not fragilis)': ['Anaerobe'],
         'Gram Negative Rods (anaerobes, other)': ['Gram Negative','Anaerobe'],
         'Gram Positive Rods (anaerobes)': ['Gram Positive','Gram Positive Rods','Anaerobe'],
+        'Gram Positive Cocci (anaerobes)': ['Gram Positive','Gram Positive Cocci','Anaerobe'],
+
         'Campylobacter': ['Gram Negative'],
 
         'Candida albicans': ['Fungal (Yeast)'],
         'Candida glabrata': ['Fungal (Yeast)'],
         'Candida parapsilosis': ['Fungal (Yeast)'],
         'Candida krusei': ['Fungal (Yeast)'],
+        'Candida tropicalis': ['Fungal (Yeast)'],
         'Candida (other)': ['Fungal (Yeast)'],
 
         'Cryptococcus neoformans': ['Fungal (Yeast)'],
@@ -4204,5 +4213,443 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2012"] = ''+
 
     '';
 
-DEFAULT_SOURCE = "Stanford (SUH) 2012";
+SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2015"] = ''+
+    '218\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
+    '100\tStreptococcus Group B (agalactiae)\tPenicillin G\n'+
+    '100\tStreptococcus Group B (agalactiae)\tAmpicillin/Amoxicillin\n'+
+    '58\tStreptococcus Group B (agalactiae)\tErythromycin\n'+
+    '61\tStreptococcus Group B (agalactiae)\tClindamycin\n'+
+    '96\tStreptococcus Group B (agalactiae)\tNitrofurantoin (uncomplicated UTI)\n'+
+    '191\tStreptococcus viridans Group\tNumber Tested\n'+
+    '90\tStreptococcus viridans Group\tPenicillin G\n'+
+    '90\tStreptococcus viridans Group\tAmpicillin/Amoxicillin\n'+
+    '100\tStreptococcus viridans Group\tCeftriaxone\n'+
+    '100\tStreptococcus viridans Group\tVancomycin\n'+
+    '55\tStreptococcus viridans Group\tErythromycin\n'+
+    '78\tStreptococcus viridans Group\tClindamycin\n'+
+    '73\tStreptococcus pneumoniae\tNumber Tested\n'+
+    '75\tStreptococcus pneumoniae\tPenicillin G\n'+
+    '75\tStreptococcus pneumoniae\tAmpicillin/Amoxicillin\n'+
+    '94\tStreptococcus pneumoniae\tCefuroxime\n'+
+    '99\tStreptococcus pneumoniae\tCeftriaxone\n'+
+    '100\tStreptococcus pneumoniae\tVancomycin\n'+
+    '75\tStreptococcus pneumoniae\tErythromycin\n'+
+    '93\tStreptococcus pneumoniae\tClindamycin\n'+
+    '97\tStreptococcus pneumoniae\tMeropenem\n'+
+    '81\tStreptococcus pneumoniae\tTMP-SMX\n'+
+    '100\tStreptococcus pneumoniae\tMoxifloxacin\n'+
+    '701\tEnterococcus (unspeciated)\tNumber Tested\n'+
+    '84\tEnterococcus (unspeciated)\tPenicillin G\n'+
+    '84\tEnterococcus (unspeciated)\tAmpicillin/Amoxicillin\n'+
+    '87\tEnterococcus (unspeciated)\tVancomycin\n'+
+    '23\tEnterococcus (unspeciated)\tDoxycycline\n'+
+    '90\tEnterococcus (unspeciated)\tNitrofurantoin (uncomplicated UTI)\n'+
+    '67\tEnterococcus (unspeciated)\tCiprofloxacin\n'+
+    '99\tEnterococcus (unspeciated)\tLinezolid\n'+
+    '133\tEnterococcus faecalis\tNumber Tested\n'+
+    '100\tEnterococcus faecalis\tPenicillin G\n'+
+    '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
+    '99\tEnterococcus faecalis\tVancomycin\n'+
+    '67\tEnterococcus faecalis\tGentamicin\n'+
+    '98\tEnterococcus faecalis\tLinezolid\n'+
+    '118\tEnterococcus faecium\tNumber Tested\n'+
+    '27\tEnterococcus faecium\tPenicillin G\n'+
+    '27\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
+    '45\tEnterococcus faecium\tVancomycin\n'+
+    '25\tEnterococcus faecium\tDoxycycline\n'+
+    '95\tEnterococcus faecium\tGentamicin\n'+
+    '93\tEnterococcus faecium\tLinezolid\n'+
+
+    '76\tCandida albicans\tNumber Tested\n'+
+    '100\tCandida albicans\tAmphotericin B\n'+
+    '99\tCandida albicans\tCaspofungin\n'+
+    '93\tCandida albicans\tFluconazole\n'+
+    '96\tCandida albicans\tVoriconazole\n'+
+    '61\tCandida glabrata\tNumber Tested\n'+
+    '100\tCandida glabrata\tAmphotericin B\n'+
+    '90\tCandida glabrata\tCaspofungin\n'+
+    '89\tCandida glabrata\tFluconazole\n'+
+    '23\tCandida parapsilosis\tNumber Tested\n'+
+    '100\tCandida parapsilosis\tAmphotericin B\n'+
+    '100\tCandida parapsilosis\tCaspofungin\n'+
+    '100\tCandida parapsilosis\tFluconazole\n'+
+    '100\tCandida parapsilosis\tVoriconazole\n'+
+    '16\tCandida tropicalis\tNumber Tested\n'+
+    '100\tCandida tropicalis\tAmphotericin B\n'+
+    '100\tCandida tropicalis\tCaspofungin\n'+
+    '94\tCandida tropicalis\tFluconazole\n'+
+    '93\tCandida tropicalis\tVoriconazole\n'+
+    '40\tCandida (other)\tNumber Tested\n'+
+    '100\tCandida (other)\tAmphotericin B\n'+
+    '95\tCandida (other)\tCaspofungin\n'+
+    '100\tCandida (other)\tFluconazole\n'+
+    '100\tCandida (other)\tVoriconazole\n'+
+    '0\tCandida krusei\tFluconazole\n'+
+
+    '25\tAchromobacter xylosoxidans\tNumber Tested\n'+
+    '79\tAchromobacter xylosoxidans\tPiperacillin-Tazobactam\n'+
+    '24\tAchromobacter xylosoxidans\tCefepime\n'+
+    '0\tAchromobacter xylosoxidans\tAztreonam\n'+
+    '84\tAchromobacter xylosoxidans\tImipenem\n'+
+    '64\tAchromobacter xylosoxidans\tMeropenem\n'+
+    '3\tAchromobacter xylosoxidans\tGentamicin\n'+
+    '4\tAchromobacter xylosoxidans\tTobramycin\n'+
+    '8\tAchromobacter xylosoxidans\tAmikacin\n'+
+    '21\tAchromobacter xylosoxidans\tCiprofloxacin\n'+
+    '56\tAchromobacter xylosoxidans\tLevofloxacin\n'+
+    '86\tAchromobacter xylosoxidans\tTMP-SMX\n'+
+    '23\tAcinetobacter\tNumber Tested\n'+
+    '78\tAcinetobacter\tAmpicillin-Sulbactam\n'+
+    '47\tAcinetobacter\tCefepime\n'+
+    '71\tAcinetobacter\tMeropenem\n'+
+    '68\tAcinetobacter\tGentamicin\n'+
+    '83\tAcinetobacter\tTobramycin\n'+
+    '87\tAcinetobacter\tAmikacin\n'+
+    '53\tAcinetobacter\tCiprofloxacin\n'+
+    '61\tAcinetobacter\tLevofloxacin\n'+
+    '53\tAcinetobacter\tTMP-SMX\n'+
+    '13\tBurkholderia cepacia\tNumber Tested\n'+
+    '62\tBurkholderia cepacia\tCeftazidime\n'+
+    '85\tBurkholderia cepacia\tMinocycline\n'+
+    '62\tBurkholderia cepacia\tMeropenem\n'+
+    '69\tBurkholderia cepacia\tTMP-SMX\n'+
+    '68\tCitrobacter freundii\tNumber Tested\n'+
+    '0\tCitrobacter freundii\tAmpicillin/Amoxicillin\n'+
+    '0\tCitrobacter freundii\tAmpicillin-Sulbactam\n'+
+    '92\tCitrobacter freundii\tPiperacillin-Tazobactam\n'+
+    '0\tCitrobacter freundii\tCefazolin\n'+
+    '90\tCitrobacter freundii\tCeftriaxone\n'+
+    '100\tCitrobacter freundii\tCefepime\n'+
+    '74\tCitrobacter freundii\tAztreonam\n'+
+    '100\tCitrobacter freundii\tImipenem\n'+
+    '100\tCitrobacter freundii\tMeropenem\n'+
+    '98\tCitrobacter freundii\tErtapenem\n'+
+    '95\tCitrobacter freundii\tGentamicin\n'+
+    '97\tCitrobacter freundii\tTobramycin\n'+
+    '100\tCitrobacter freundii\tAmikacin\n'+
+    '92\tCitrobacter freundii\tCiprofloxacin\n'+
+    '92\tCitrobacter freundii\tLevofloxacin\n'+
+    '82\tCitrobacter freundii\tTMP-SMX\n'+
+    '97\tCitrobacter freundii\tNitrofurantoin (uncomplicated UTI)\n'+
+    '71\tCitrobacter koseri\tNumber Tested\n'+
+    '0\tCitrobacter koseri\tAmpicillin/Amoxicillin\n'+
+    '100\tCitrobacter koseri\tAmpicillin-Sulbactam\n'+
+    '100\tCitrobacter koseri\tPiperacillin-Tazobactam\n'+
+    '100\tCitrobacter koseri\tCefazolin\n'+
+    '100\tCitrobacter koseri\tCeftriaxone\n'+
+    '100\tCitrobacter koseri\tCefepime\n'+
+    '100\tCitrobacter koseri\tAztreonam\n'+
+    '100\tCitrobacter koseri\tImipenem\n'+
+    '100\tCitrobacter koseri\tMeropenem\n'+
+    '100\tCitrobacter koseri\tErtapenem\n'+
+    '100\tCitrobacter koseri\tGentamicin\n'+
+    '100\tCitrobacter koseri\tTobramycin\n'+
+    '100\tCitrobacter koseri\tAmikacin\n'+
+    '100\tCitrobacter koseri\tCiprofloxacin\n'+
+    '100\tCitrobacter koseri\tLevofloxacin\n'+
+    '100\tCitrobacter koseri\tTMP-SMX\n'+
+    '76\tCitrobacter koseri\tNitrofurantoin (uncomplicated UTI)\n'+
+    '85\tEnterobacter aerogenes\tNumber Tested\n'+
+    '0\tEnterobacter aerogenes\tAmpicillin/Amoxicillin\n'+
+    '0\tEnterobacter aerogenes\tAmpicillin-Sulbactam\n'+
+    '88\tEnterobacter aerogenes\tPiperacillin-Tazobactam\n'+
+    '0\tEnterobacter aerogenes\tCefazolin\n'+
+    '86\tEnterobacter aerogenes\tCeftriaxone\n'+
+    '100\tEnterobacter aerogenes\tCefepime\n'+
+    '88\tEnterobacter aerogenes\tAztreonam\n'+
+    '88\tEnterobacter aerogenes\tImipenem\n'+
+    '97\tEnterobacter aerogenes\tMeropenem\n'+
+    '96\tEnterobacter aerogenes\tErtapenem\n'+
+    '100\tEnterobacter aerogenes\tGentamicin\n'+
+    '100\tEnterobacter aerogenes\tTobramycin\n'+
+    '100\tEnterobacter aerogenes\tAmikacin\n'+
+    '98\tEnterobacter aerogenes\tCiprofloxacin\n'+
+    '99\tEnterobacter aerogenes\tLevofloxacin\n'+
+    '98\tEnterobacter aerogenes\tTMP-SMX\n'+
+    '16\tEnterobacter aerogenes\tNitrofurantoin (uncomplicated UTI)\n'+
+    '173\tEnterobacter cloacae\tNumber Tested\n'+
+    '0\tEnterobacter cloacae\tAmpicillin/Amoxicillin\n'+
+    '0\tEnterobacter cloacae\tAmpicillin-Sulbactam\n'+
+    '76\tEnterobacter cloacae\tPiperacillin-Tazobactam\n'+
+    '0\tEnterobacter cloacae\tCefazolin\n'+
+    '74\tEnterobacter cloacae\tCeftriaxone\n'+
+    '97\tEnterobacter cloacae\tCefepime\n'+
+    '80\tEnterobacter cloacae\tAztreonam\n'+
+    '94\tEnterobacter cloacae\tImipenem\n'+
+    '98\tEnterobacter cloacae\tMeropenem\n'+
+    '90\tEnterobacter cloacae\tErtapenem\n'+
+    '94\tEnterobacter cloacae\tGentamicin\n'+
+    '94\tEnterobacter cloacae\tTobramycin\n'+
+    '100\tEnterobacter cloacae\tAmikacin\n'+
+    '95\tEnterobacter cloacae\tCiprofloxacin\n'+
+    '97\tEnterobacter cloacae\tLevofloxacin\n'+
+    '86\tEnterobacter cloacae\tTMP-SMX\n'+
+    '42\tEnterobacter cloacae\tNitrofurantoin (uncomplicated UTI)\n'+
+    '2601\tEscheria coli\tNumber Tested\n'+
+    '53\tEscheria coli\tAmpicillin/Amoxicillin\n'+
+    '53\tEscheria coli\tAmpicillin-Sulbactam\n'+
+    '95\tEscheria coli\tPiperacillin-Tazobactam\n'+
+    '84\tEscheria coli\tCefazolin\n'+
+    '90\tEscheria coli\tCeftriaxone\n'+
+    '97\tEscheria coli\tCefepime\n'+
+    '84\tEscheria coli\tAztreonam\n'+
+    '100\tEscheria coli\tImipenem\n'+
+    '100\tEscheria coli\tMeropenem\n'+
+    '100\tEscheria coli\tErtapenem\n'+
+    '89\tEscheria coli\tGentamicin\n'+
+    '91\tEscheria coli\tTobramycin\n'+
+    '100\tEscheria coli\tAmikacin\n'+
+    '78\tEscheria coli\tCiprofloxacin\n'+
+    '78\tEscheria coli\tLevofloxacin\n'+
+    '71\tEscheria coli\tTMP-SMX\n'+
+    '95\tEscheria coli\tNitrofurantoin (uncomplicated UTI)\n'+
+    '96\tKlebsiella oxytoca\tNumber Tested\n'+
+    '0\tKlebsiella oxytoca\tAmpicillin/Amoxicillin\n'+
+    '67\tKlebsiella oxytoca\tAmpicillin-Sulbactam\n'+
+    '92\tKlebsiella oxytoca\tPiperacillin-Tazobactam\n'+
+    '31\tKlebsiella oxytoca\tCefazolin\n'+
+    '93\tKlebsiella oxytoca\tCeftriaxone\n'+
+    '99\tKlebsiella oxytoca\tCefepime\n'+
+    '92\tKlebsiella oxytoca\tAztreonam\n'+
+    '100\tKlebsiella oxytoca\tImipenem\n'+
+    '100\tKlebsiella oxytoca\tMeropenem\n'+
+    '100\tKlebsiella oxytoca\tErtapenem\n'+
+    '99\tKlebsiella oxytoca\tGentamicin\n'+
+    '98\tKlebsiella oxytoca\tTobramycin\n'+
+    '100\tKlebsiella oxytoca\tAmikacin\n'+
+    '95\tKlebsiella oxytoca\tCiprofloxacin\n'+
+    '96\tKlebsiella oxytoca\tLevofloxacin\n'+
+    '89\tKlebsiella oxytoca\tTMP-SMX\n'+
+    '77\tKlebsiella oxytoca\tNitrofurantoin (uncomplicated UTI)\n'+
+    '478\tKlebsiella pneumoniae\tNumber Tested\n'+
+    '0\tKlebsiella pneumoniae\tAmpicillin/Amoxicillin\n'+
+    '71\tKlebsiella pneumoniae\tAmpicillin-Sulbactam\n'+
+    '92\tKlebsiella pneumoniae\tPiperacillin-Tazobactam\n'+
+    '88\tKlebsiella pneumoniae\tCefazolin\n'+
+    '92\tKlebsiella pneumoniae\tCeftriaxone\n'+
+    '95\tKlebsiella pneumoniae\tCefepime\n'+
+    '90\tKlebsiella pneumoniae\tAztreonam\n'+
+    '99\tKlebsiella pneumoniae\tImipenem\n'+
+    '99\tKlebsiella pneumoniae\tMeropenem\n'+
+    '99\tKlebsiella pneumoniae\tErtapenem\n'+
+    '94\tKlebsiella pneumoniae\tGentamicin\n'+
+    '92\tKlebsiella pneumoniae\tTobramycin\n'+
+    '100\tKlebsiella pneumoniae\tAmikacin\n'+
+    '91\tKlebsiella pneumoniae\tCiprofloxacin\n'+
+    '93\tKlebsiella pneumoniae\tLevofloxacin\n'+
+    '86\tKlebsiella pneumoniae\tTMP-SMX\n'+
+    '21\tKlebsiella pneumoniae\tNitrofurantoin (uncomplicated UTI)\n'+
+    '44\tMorganella\tNumber Tested\n'+
+    '0\tMorganella\tAmpicillin/Amoxicillin\n'+
+    '0\tMorganella\tAmpicillin-Sulbactam\n'+
+    '98\tMorganella\tPiperacillin-Tazobactam\n'+
+    '0\tMorganella\tCefazolin\n'+
+    '89\tMorganella\tCeftriaxone\n'+
+    '100\tMorganella\tCefepime\n'+
+    '93\tMorganella\tAztreonam\n'+
+    '100\tMorganella\tMeropenem\n'+
+    '100\tMorganella\tErtapenem\n'+
+    '85\tMorganella\tGentamicin\n'+
+    '98\tMorganella\tTobramycin\n'+
+    '100\tMorganella\tAmikacin\n'+
+    '83\tMorganella\tCiprofloxacin\n'+
+    '85\tMorganella\tLevofloxacin\n'+
+    '69\tMorganella\tTMP-SMX\n'+
+    '0\tMorganella\tNitrofurantoin (uncomplicated UTI)\n'+
+    '250\tProteus mirabilis\tNumber Tested\n'+
+    '77\tProteus mirabilis\tAmpicillin/Amoxicillin\n'+
+    '86\tProteus mirabilis\tAmpicillin-Sulbactam\n'+
+    '100\tProteus mirabilis\tPiperacillin-Tazobactam\n'+
+    '87\tProteus mirabilis\tCefazolin\n'+
+    '95\tProteus mirabilis\tCeftriaxone\n'+
+    '99\tProteus mirabilis\tCefepime\n'+
+    '97\tProteus mirabilis\tAztreonam\n'+
+    '100\tProteus mirabilis\tMeropenem\n'+
+    '100\tProteus mirabilis\tErtapenem\n'+
+    '87\tProteus mirabilis\tGentamicin\n'+
+    '90\tProteus mirabilis\tTobramycin\n'+
+    '100\tProteus mirabilis\tAmikacin\n'+
+    '92\tProteus mirabilis\tCiprofloxacin\n'+
+    '87\tProteus mirabilis\tLevofloxacin\n'+
+    '81\tProteus mirabilis\tTMP-SMX\n'+
+    '0\tProteus mirabilis\tNitrofurantoin (uncomplicated UTI)\n'+
+    '11\tProteus vulgaris\tNumber Tested\n'+
+    '0\tProteus vulgaris\tAmpicillin/Amoxicillin\n'+
+    '100\tProteus vulgaris\tAmpicillin-Sulbactam\n'+
+    '100\tProteus vulgaris\tPiperacillin-Tazobactam\n'+
+    '0\tProteus vulgaris\tCefazolin\n'+
+    '100\tProteus vulgaris\tCefepime\n'+
+    '100\tProteus vulgaris\tMeropenem\n'+
+    '100\tProteus vulgaris\tErtapenem\n'+
+    '100\tProteus vulgaris\tGentamicin\n'+
+    '100\tProteus vulgaris\tTobramycin\n'+
+    '100\tProteus vulgaris\tAmikacin\n'+
+    '100\tProteus vulgaris\tCiprofloxacin\n'+
+    '100\tProteus vulgaris\tTMP-SMX\n'+
+    '0\tProteus vulgaris\tNitrofurantoin (uncomplicated UTI)\n'+
+    '509\tPseudomonas aeruginosa\tNumber Tested\n'+
+    '93\tPseudomonas aeruginosa\tPiperacillin-Tazobactam\n'+
+    '90\tPseudomonas aeruginosa\tCefepime\n'+
+    '83\tPseudomonas aeruginosa\tAztreonam\n'+
+    '83\tPseudomonas aeruginosa\tImipenem\n'+
+    '88\tPseudomonas aeruginosa\tMeropenem\n'+
+    '87\tPseudomonas aeruginosa\tGentamicin\n'+
+    '94\tPseudomonas aeruginosa\tTobramycin\n'+
+    '93\tPseudomonas aeruginosa\tAmikacin\n'+
+    '85\tPseudomonas aeruginosa\tCiprofloxacin\n'+
+    '82\tPseudomonas aeruginosa\tLevofloxacin\n'+
+    '155\tPseudomonas aeruginosa CF mucoid\tNumber Tested\n'+
+    '87\tPseudomonas aeruginosa CF mucoid\tPiperacillin\n'+
+    '85\tPseudomonas aeruginosa CF mucoid\tCefepime\n'+
+    '81\tPseudomonas aeruginosa CF mucoid\tAztreonam\n'+
+    '77\tPseudomonas aeruginosa CF mucoid\tImipenem\n'+
+    '83\tPseudomonas aeruginosa CF mucoid\tMeropenem\n'+
+    '91\tPseudomonas aeruginosa CF mucoid\tTobramycin\n'+
+    '69\tPseudomonas aeruginosa CF mucoid\tAmikacin\n'+
+    '64\tPseudomonas aeruginosa CF mucoid\tCiprofloxacin\n'+
+    '124\tPseudomonas aeruginosa CF non-mucoid\tNumber Tested\n'+
+    '70\tPseudomonas aeruginosa CF non-mucoid\tPiperacillin\n'+
+    '66\tPseudomonas aeruginosa CF non-mucoid\tCefepime\n'+
+    '65\tPseudomonas aeruginosa CF non-mucoid\tAztreonam\n'+
+    '65\tPseudomonas aeruginosa CF non-mucoid\tImipenem\n'+
+    '71\tPseudomonas aeruginosa CF non-mucoid\tMeropenem\n'+
+    '66\tPseudomonas aeruginosa CF non-mucoid\tTobramycin\n'+
+    '46\tPseudomonas aeruginosa CF non-mucoid\tAmikacin\n'+
+    '54\tPseudomonas aeruginosa CF non-mucoid\tCiprofloxacin\n'+
+    '12\tSalmonella\tNumber Tested\n'+
+    '73\tSalmonella\tAmpicillin/Amoxicillin\n'+
+    '100\tSalmonella\tCeftriaxone\n'+
+    '92\tSalmonella\tCiprofloxacin\n'+
+    '100\tSalmonella\tTMP-SMX\n'+
+    '96\tSerratia marcescens\tNumber Tested\n'+
+    '0\tSerratia marcescens\tAmpicillin/Amoxicillin\n'+
+    '0\tSerratia marcescens\tAmpicillin-Sulbactam\n'+
+    '97\tSerratia marcescens\tPiperacillin-Tazobactam\n'+
+    '0\tSerratia marcescens\tCefazolin\n'+
+    '95\tSerratia marcescens\tCeftriaxone\n'+
+    '100\tSerratia marcescens\tCefepime\n'+
+    '98\tSerratia marcescens\tAztreonam\n'+
+    '98\tSerratia marcescens\tImipenem\n'+
+    '98\tSerratia marcescens\tMeropenem\n'+
+    '98\tSerratia marcescens\tErtapenem\n'+
+    '99\tSerratia marcescens\tGentamicin\n'+
+    '98\tSerratia marcescens\tTobramycin\n'+
+    '98\tSerratia marcescens\tAmikacin\n'+
+    '91\tSerratia marcescens\tCiprofloxacin\n'+
+    '97\tSerratia marcescens\tLevofloxacin\n'+
+    '98\tSerratia marcescens\tTMP-SMX\n'+
+    '0\tSerratia marcescens\tNitrofurantoin (uncomplicated UTI)\n'+
+    '129\tStenotrophomonas maltophilia\tNumber Tested\n'+
+    '90\tStenotrophomonas maltophilia\tLevofloxacin\n'+
+    '98\tStenotrophomonas maltophilia\tTMP-SMX\n'+
+
+    '1719\tStaphylococcus aureus (all)\tNumber Tested\n'+
+    '76\tStaphylococcus aureus (all)\tNafcillin/Oxacillin\n'+
+    '76\tStaphylococcus aureus (all)\tCephalexin\n'+
+    '100\tStaphylococcus aureus (all)\tVancomycin\n'+
+    '58\tStaphylococcus aureus (all)\tErythromycin\n'+
+    '74\tStaphylococcus aureus (all)\tClindamycin\n'+
+    '97\tStaphylococcus aureus (all)\tGentamicin\n'+
+    '99\tStaphylococcus aureus (all)\tTMP-SMX\n'+
+    '72\tStaphylococcus aureus (all)\tMoxifloxacin\n'+
+    '95\tStaphylococcus aureus (all)\tDoxycycline\n'+
+    '100\tStaphylococcus aureus (all)\tLinezolid\n'+
+    '411\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
+    '0\tStaphylococcus aureus (MRSA)\tNafcillin/Oxacillin\n'+
+    '0\tStaphylococcus aureus (MRSA)\tCephalexin\n'+
+    '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
+    '13\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
+    '50\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
+    '94\tStaphylococcus aureus (MRSA)\tGentamicin\n'+
+    '98\tStaphylococcus aureus (MRSA)\tTMP-SMX\n'+
+    '24\tStaphylococcus aureus (MRSA)\tMoxifloxacin\n'+
+    '95\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
+    '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
+    '1308\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
+    '100\tStaphylococcus aureus (MSSA)\tNafcillin/Oxacillin\n'+
+    '100\tStaphylococcus aureus (MSSA)\tCephalexin\n'+
+    '100\tStaphylococcus aureus (MSSA)\tVancomycin\n'+
+    '72\tStaphylococcus aureus (MSSA)\tErythromycin\n'+
+    '81\tStaphylococcus aureus (MSSA)\tClindamycin\n'+
+    '98\tStaphylococcus aureus (MSSA)\tGentamicin\n'+
+    '99\tStaphylococcus aureus (MSSA)\tTMP-SMX\n'+
+    '88\tStaphylococcus aureus (MSSA)\tMoxifloxacin\n'+
+    '95\tStaphylococcus aureus (MSSA)\tDoxycycline\n'+
+    '100\tStaphylococcus aureus (MSSA)\tLinezolid\n'+
+    '85\tStaphylococcus lugdunensis\tNumber Tested\n'+
+    '91\tStaphylococcus lugdunensis\tNafcillin/Oxacillin\n'+
+    '91\tStaphylococcus lugdunensis\tCephalexin\n'+
+    '100\tStaphylococcus lugdunensis\tVancomycin\n'+
+    '80\tStaphylococcus lugdunensis\tErythromycin\n'+
+    '81\tStaphylococcus lugdunensis\tClindamycin\n'+
+    '95\tStaphylococcus lugdunensis\tGentamicin\n'+
+    '95\tStaphylococcus lugdunensis\tTMP-SMX\n'+
+    '98\tStaphylococcus lugdunensis\tMoxifloxacin\n'+
+    '87\tStaphylococcus lugdunensis\tDoxycycline\n'+
+    '100\tStaphylococcus lugdunensis\tLinezolid\n'+
+    '280\tStaphylococcus, Coagulase Negative (epidermidis)\tNumber Tested\n'+
+    '40\tStaphylococcus, Coagulase Negative (epidermidis)\tNafcillin/Oxacillin\n'+
+    '40\tStaphylococcus, Coagulase Negative (epidermidis)\tCephalexin\n'+
+    '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
+    '36\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
+    '56\tStaphylococcus, Coagulase Negative (epidermidis)\tClindamycin\n'+
+    '76\tStaphylococcus, Coagulase Negative (epidermidis)\tGentamicin\n'+
+    '60\tStaphylococcus, Coagulase Negative (epidermidis)\tTMP-SMX\n'+
+    '48\tStaphylococcus, Coagulase Negative (epidermidis)\tMoxifloxacin\n'+
+    '82\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
+    '99\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
+    '\n'+
+    '45\tBacteroides fragilis\tNumber Tested\n'+
+    '0\tBacteroides fragilis\tPenicillin G\n'+
+    '94\tBacteroides fragilis\tAmpicillin-Sulbactam\n'+
+    '90\tBacteroides fragilis\tPiperacillin-Tazobactam\n'+
+    '96\tBacteroides fragilis\tMeropenem\n'+
+    '69\tBacteroides fragilis\tClindamycin\n'+
+    '100\tBacteroides fragilis\tMetronidazole\n'+
+    '29\tBacteroides (not fragilis)\tNumber Tested\n'+
+    '0\tBacteroides (not fragilis)\tPenicillin G\n'+
+    '87\tBacteroides (not fragilis)\tAmpicillin-Sulbactam\n'+
+    '80\tBacteroides (not fragilis)\tPiperacillin-Tazobactam\n'+
+    '93\tBacteroides (not fragilis)\tMeropenem\n'+
+    '28\tBacteroides (not fragilis)\tClindamycin\n'+
+    '100\tBacteroides (not fragilis)\tMetronidazole\n'+
+    '35\tGram Negative Rods (anaerobes, other)\tNumber Tested\n'+
+    '50\tGram Negative Rods (anaerobes, other)\tPenicillin G\n'+
+    '100\tGram Negative Rods (anaerobes, other)\tAmpicillin-Sulbactam\n'+
+    '100\tGram Negative Rods (anaerobes, other)\tPiperacillin-Tazobactam\n'+
+    '100\tGram Negative Rods (anaerobes, other)\tMeropenem\n'+
+    '77\tGram Negative Rods (anaerobes, other)\tClindamycin\n'+
+    '100\tGram Negative Rods (anaerobes, other)\tMetronidazole\n'+
+    '8\tClostridium perfringens\tNumber Tested\n'+
+    '88\tClostridium perfringens\tPenicillin G\n'+
+    '100\tClostridium perfringens\tAmpicillin-Sulbactam\n'+
+    '100\tClostridium perfringens\tPiperacillin-Tazobactam\n'+
+    '50\tClostridium perfringens\tClindamycin\n'+
+    '100\tClostridium perfringens\tMetronidazole\n'+
+    '21\tClostridium (not perfringens)\tNumber Tested\n'+
+    '55\tClostridium (not perfringens)\tPenicillin G\n'+
+    '100\tClostridium (not perfringens)\tAmpicillin-Sulbactam\n'+
+    '100\tClostridium (not perfringens)\tPiperacillin-Tazobactam\n'+
+    '50\tClostridium (not perfringens)\tClindamycin\n'+
+    '100\tClostridium (not perfringens)\tMetronidazole\n'+
+    '29\tGram Positive Rods (anaerobes)\tNumber Tested\n'+
+    '100\tGram Positive Rods (anaerobes)\tAmpicillin-Sulbactam\n'+
+    '100\tGram Positive Rods (anaerobes)\tPiperacillin-Tazobactam\n'+
+    '96\tGram Positive Rods (anaerobes)\tMeropenem\n'+
+    '92\tGram Positive Rods (anaerobes)\tClindamycin\n'+
+    '0\tGram Positive Rods (anaerobes)\tMetronidazole\n'+
+    '26\tGram Positive Cocci (anaerobes)\tNumber Tested\n'+
+    '100\tGram Positive Cocci (anaerobes)\tPenicillin G\n'+
+    '100\tGram Positive Cocci (anaerobes)\tAmpicillin-Sulbactam\n'+
+    '100\tGram Positive Cocci (anaerobes)\tPiperacillin-Tazobactam\n'+
+    '76\tGram Positive Cocci (anaerobes)\tClindamycin\n'+
+    '92\tGram Positive Cocci (anaerobes)\tMetronidazole\n'+
+
+    '21\tCampylobacter\tNumber Tested\n'+
+    '57\tCampylobacter\tCiprofloxacin\n'+
+    '45\tCampylobacter\tDoxycycline\n'+
+    '95\tCampylobacter\tErythromycin\n'+
+    '';
+
+DEFAULT_SOURCE = "Stanford (SUH) 2015";
 SENSITIVITY_DATA_PER_SOURCE["default"] = SENSITIVITY_DATA_PER_SOURCE[DEFAULT_SOURCE];
