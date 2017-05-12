@@ -3,8 +3,7 @@
 import sys,os;
 from medinfo.common.Const import NULL_STRING;
 from medinfo.common.Util import stdOpen;
-from medinfo.db.ResultsFormatter import TabDictReader, pandas_read_table, TextResultsFormatter;
-import pandas as pd;
+from medinfo.db.ResultsFormatter import TabDictReader, TextResultsFormatter;
 
 ifs = stdOpen(sys.argv[1]); # Input tab delimited file
 ofs = stdOpen(sys.argv[2],"w");	# "-" for stdout
