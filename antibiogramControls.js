@@ -44,8 +44,10 @@ function clearSelectedDrugs()
 function updateAntibiogramList(theForm)
 {
     // Populate list of antibiograms to choose from
-    for(var sourceKey in SENSITIVITY_DATA_PER_SOURCE)
+    var sourceKeys = Object.keys(SENSITIVITY_DATA_PER_SOURCE).sort();
+    for(var i=0; i<sourceKeys.length; i++)
     {
+        var sourceKey = sourceKeys[i];
         if (sourceKey != 'default')
         {
             var option = document.createElement('option');
