@@ -106,7 +106,6 @@ var DRUG_LIST =
 
         // Additional elements from VA Palo Alto Med System 2016
         'Streptomycin',
-        'Tetracycline'
     ];
 DRUG_LIST.sort();   // Present in alphabetic sorted order
 
@@ -134,7 +133,7 @@ var DRUG_CLASS_LIST =
         'Protein Synthesis Inhibitor',
         'Macrolide',
         'Ketolide',
-        'Tetracycline',
+        'Doxycycline',
         'Glycylcycline',
         'Glycopeptide',
         'Anti-Metabolite',
@@ -193,6 +192,7 @@ var PROPERTIES_BY_DRUG =
 
         'Gentamicin': ['Aminoglycoside'],
         'Tobramycin': ['Aminoglycoside'],
+        'Streptomycin': ['Aminoglycoside'],
         'Amikacin': ['Aminoglycoside'],
         'Chloramphenicol': ['Protein Synthesis Inhibitor','Oral Available'],
         'Clindamycin': ['Protein Synthesis Inhibitor','Oral Available'],
@@ -200,8 +200,8 @@ var PROPERTIES_BY_DRUG =
         'Azithromycin': ['Macrolide','Oral Available'],
         'Clarithromycin': ['Macrolide','Oral Available'],
         'Telithromycin': ['Ketolide'],
-        'Doxycycline': ['Tetracycline','Oral Available'],
-        'Minocycline': ['Tetracycline'],
+        'Doxycycline': ['Doxycycline','Oral Available'],
+        'Minocycline': ['Doxycycline'],
         'Tigecycline': ['Glycylcycline'],
         'Vancomycin': ['Glycopeptide'],
         'Teicoplanin': ['Glycopeptide'],
@@ -510,13 +510,13 @@ for( var i=0; i < BUG_LIST.length; i++ )
 }
 */
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Spinal Chord Injury Unit) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (Spinal Cord Injury Unit)"] = ''+
 '32\tEnterococcus faecalis\tNumber Tested\n'+
 '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '50\tEnterococcus faecalis\tStreptomycin\n'+
 '100\tEnterococcus faecalis\tLinezolid\n'+
 '100\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'13\tEnterococcus faecalis\tTetracycline\n'+
+'13\tEnterococcus faecalis\tDoxycycline\n'+
 '94\tEnterococcus faecalis\tVancomycin\n'+
 '20\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '44\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -524,7 +524,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Spinal Chord Injury Unit) 2016"] = ''
 '33\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '94\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'100\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'100\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '100\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '10\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -541,7 +541,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Spinal Chord Injury Unit) 2016"] = ''
 '67\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
-'67\tStaphylococcus, Coagulase Negative (epidermidis)\tTetracycline\n'+
+'67\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
 '56\tStaphylococcus, Coagulase Negative (epidermidis)\tTrimethoprim\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
 '51\tEscheria coli\tNumber Tested\n'+
@@ -617,11 +617,11 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Spinal Chord Injury Unit) 2016"] = ''
 '59\tPseudomonas aeruginosa\tLevofloxacin\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Long Term Care) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (Long Term Care)"] = ''+
 '11\tEnterococcus faecalis\tNumber Tested\n'+
 '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '100\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'20\tEnterococcus faecalis\tTetracycline\n'+
+'20\tEnterococcus faecalis\tDoxycycline\n'+
 '100\tEnterococcus faecalis\tVancomycin\n'+
 '2\tEnterococcus faecium\tNumber Tested\n'+
 '0\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
@@ -629,7 +629,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Long Term Care) 2016"] = ''+
 '100\tEnterococcus faecium\tDaptomycin (non-pneumonia)\n'+
 '100\tEnterococcus faecium\tLinezolid\n'+
 '0\tEnterococcus faecium\tNitrofurantoin (uncomplicated UTI)\n'+
-'0\tEnterococcus faecium\tTetracycline\n'+
+'0\tEnterococcus faecium\tDoxycycline\n'+
 '0\tEnterococcus faecium\tVancomycin\n'+
 '15\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '27\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -637,7 +637,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Long Term Care) 2016"] = ''+
 '9\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'86\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'86\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '100\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '10\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -720,7 +720,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Long Term Care) 2016"] = ''+
 '65\tPseudomonas aeruginosa\tLevofloxacin\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (ICU/IICU)"] = ''+
 '21\tEnterococcus faecalis\tNumber Tested\n'+
 '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '100\tEnterococcus faecalis\tGentamicin\n'+
@@ -728,7 +728,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
 '100\tEnterococcus faecalis\tDaptomycin (non-pneumonia)\n'+
 '100\tEnterococcus faecalis\tLinezolid\n'+
 '100\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'29\tEnterococcus faecalis\tTetracycline\n'+
+'29\tEnterococcus faecalis\tDoxycycline\n'+
 '90\tEnterococcus faecalis\tVancomycin\n'+
 '4\tEnterococcus faecium\tNumber Tested\n'+
 '25\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
@@ -736,7 +736,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
 '100\tEnterococcus faecium\tStreptomycin\n'+
 '100\tEnterococcus faecium\tLinezolid\n'+
 '50\tEnterococcus faecium\tNitrofurantoin (uncomplicated UTI)\n'+
-'50\tEnterococcus faecium\tTetracycline\n'+
+'50\tEnterococcus faecium\tDoxycycline\n'+
 '25\tEnterococcus faecium\tVancomycin\n'+
 '32\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '52\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -744,7 +744,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
 '23\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'97\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'97\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '97\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '23\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -761,7 +761,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
 '36\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
 '88\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
-'88\tStaphylococcus, Coagulase Negative (epidermidis)\tTetracycline\n'+
+'88\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
 '88\tStaphylococcus, Coagulase Negative (epidermidis)\tTrimethoprim\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
 '13\tEnterobacter cloacae\tNumber Tested\n'+
@@ -866,14 +866,14 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ICU|ICCU) 2016"] = ''+
 '80\tStenotrophomonas maltophilia\tTrimethoprim\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (ER)"] = ''+
 '116\tEnterococcus faecalis\tNumber Tested\n'+
 '99\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '78\tEnterococcus faecalis\tGentamicin\n'+
 '100\tEnterococcus faecalis\tStreptomycin\n'+
 '100\tEnterococcus faecalis\tDaptomycin (non-pneumonia)\n'+
 '97\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'21\tEnterococcus faecalis\tTetracycline\n'+
+'21\tEnterococcus faecalis\tDoxycycline\n'+
 '100\tEnterococcus faecalis\tVancomycin\n'+
 '7\tEnterococcus faecium\tNumber Tested\n'+
 '0\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
@@ -882,7 +882,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '100\tEnterococcus faecium\tDaptomycin (non-pneumonia)\n'+
 '100\tEnterococcus faecium\tLinezolid\n'+
 '17\tEnterococcus faecium\tNitrofurantoin (uncomplicated UTI)\n'+
-'33\tEnterococcus faecium\tTetracycline\n'+
+'33\tEnterococcus faecium\tDoxycycline\n'+
 '29\tEnterococcus faecium\tVancomycin\n'+
 '64\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '69\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -890,7 +890,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '11\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'90\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'90\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '94\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '96\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -908,7 +908,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '50\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
 '99\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
-'88\tStaphylococcus, Coagulase Negative (epidermidis)\tTetracycline\n'+
+'88\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
 '75\tStaphylococcus, Coagulase Negative (epidermidis)\tTrimethoprim\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
 '11\tStaphylococcus lugdunensis\tNumber Tested\n'+
@@ -918,7 +918,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '78\tStaphylococcus lugdunensis\tErythromycin\n'+
 '100\tStaphylococcus lugdunensis\tLinezolid\n'+
 '100\tStaphylococcus lugdunensis\tRifampin (not for Staph monotherapy)\n'+
-'100\tStaphylococcus lugdunensis\tTetracycline\n'+
+'100\tStaphylococcus lugdunensis\tDoxycycline\n'+
 '91\tStaphylococcus lugdunensis\tTrimethoprim\n'+
 '100\tStaphylococcus lugdunensis\tVancomycin\n'+
 '8\tStreptococcus Group A,B,C,G\tNumber Tested\n'+
@@ -935,7 +935,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '100\tStreptococcus pneumoniae\tClindamycin\n'+
 '70\tStreptococcus pneumoniae\tErythromycin\n'+
 '100\tStreptococcus pneumoniae\tLinezolid\n'+
-'80\tStreptococcus pneumoniae\tTetracycline\n'+
+'80\tStreptococcus pneumoniae\tDoxycycline\n'+
 '90\tStreptococcus pneumoniae\tTrimethoprim\n'+
 '100\tStreptococcus pneumoniae\tVancomycin\n'+
 '2\tAcinetobacter\tNumber Tested\n'+
@@ -1158,20 +1158,20 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ER) 2016"] = ''+
 '100\tStenotrophomonas maltophilia\tTrimethoprim\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Acute Med/Surgery) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (Acute Med/Surg)"] = ''+
 '32\tEnterococcus faecalis\tNumber Tested\n'+
 '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '78\tEnterococcus faecalis\tGentamicin\n'+
 '100\tEnterococcus faecalis\tStreptomycin\n'+
 '100\tEnterococcus faecalis\tDaptomycin (non-pneumonia)\n'+
 '100\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'16\tEnterococcus faecalis\tTetracycline\n'+
+'16\tEnterococcus faecalis\tDoxycycline\n'+
 '94\tEnterococcus faecalis\tVancomycin\n'+
 '5\tEnterococcus faecium\tNumber Tested\n'+
 '0\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
 '100\tEnterococcus faecium\tLinezolid\n'+
 '0\tEnterococcus faecium\tNitrofurantoin (uncomplicated UTI)\n'+
-'20\tEnterococcus faecium\tTetracycline\n'+
+'20\tEnterococcus faecium\tDoxycycline\n'+
 '20\tEnterococcus faecium\tVancomycin\n'+
 '19\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '50\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -1179,7 +1179,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Acute Med/Surgery) 2016"] = ''+
 '17\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'89\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'89\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '95\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '20\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -1194,7 +1194,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Acute Med/Surgery) 2016"] = ''+
 '27\tStaphylococcus, Coagulase Negative (epidermidis)\tClindamycin\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
 '94\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
-'100\tStaphylococcus, Coagulase Negative (epidermidis)\tTetracycline\n'+
+'100\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
 '41\tStaphylococcus, Coagulase Negative (epidermidis)\tTrimethoprim\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
 '43\tEscheria coli\tNumber Tested\n'+
@@ -1270,14 +1270,14 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (Acute Med/Surgery) 2016"] = ''+
 '84\tPseudomonas aeruginosa\tLevofloxacin\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2016 Palo Alto VA (All Units)"] = ''+
 '489\tEnterococcus faecalis\tNumber Tested\n'+
 '99\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
 '73\tEnterococcus faecalis\tGentamicin\n'+
 '92\tEnterococcus faecalis\tStreptomycin\n'+
 '100\tEnterococcus faecalis\tDaptomycin (non-pneumonia)\n'+
 '99\tEnterococcus faecalis\tNitrofurantoin (uncomplicated UTI)\n'+
-'19\tEnterococcus faecalis\tTetracycline\n'+
+'19\tEnterococcus faecalis\tDoxycycline\n'+
 '99\tEnterococcus faecalis\tVancomycin\n'+
 '31\tEnterococcus faecium\tNumber Tested\n'+
 '19\tEnterococcus faecium\tAmpicillin/Amoxicillin\n'+
@@ -1286,7 +1286,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '100\tEnterococcus faecium\tDaptomycin (non-pneumonia)\n'+
 '100\tEnterococcus faecium\tLinezolid\n'+
 '9\tEnterococcus faecium\tNitrofurantoin (uncomplicated UTI)\n'+
-'26\tEnterococcus faecium\tTetracycline\n'+
+'26\tEnterococcus faecium\tDoxycycline\n'+
 '32\tEnterococcus faecium\tVancomycin\n'+
 '224\tStaphylococcus aureus (MRSA)\tNumber Tested\n'+
 '57\tStaphylococcus aureus (MRSA)\tClindamycin\n'+
@@ -1294,7 +1294,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '13\tStaphylococcus aureus (MRSA)\tErythromycin\n'+
 '100\tStaphylococcus aureus (MRSA)\tLinezolid\n'+
 '100\tStaphylococcus aureus (MRSA)\tRifampin (not for Staph monotherapy)\n'+
-'94\tStaphylococcus aureus (MRSA)\tTetracycline\n'+
+'94\tStaphylococcus aureus (MRSA)\tDoxycycline\n'+
 '97\tStaphylococcus aureus (MRSA)\tTrimethoprim\n'+
 '100\tStaphylococcus aureus (MRSA)\tVancomycin\n'+
 '346\tStaphylococcus aureus (MSSA)\tNumber Tested\n'+
@@ -1312,7 +1312,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '38\tStaphylococcus, Coagulase Negative (epidermidis)\tErythromycin\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tLinezolid\n'+
 '99\tStaphylococcus, Coagulase Negative (epidermidis)\tRifampin (not for Staph monotherapy)\n'+
-'87\tStaphylococcus, Coagulase Negative (epidermidis)\tTetracycline\n'+
+'87\tStaphylococcus, Coagulase Negative (epidermidis)\tDoxycycline\n'+
 '68\tStaphylococcus, Coagulase Negative (epidermidis)\tTrimethoprim\n'+
 '100\tStaphylococcus, Coagulase Negative (epidermidis)\tVancomycin\n'+
 '31\tStaphylococcus lugdunensis\tNumber Tested\n'+
@@ -1322,7 +1322,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '69\tStaphylococcus lugdunensis\tErythromycin\n'+
 '100\tStaphylococcus lugdunensis\tLinezolid\n'+
 '100\tStaphylococcus lugdunensis\tRifampin (not for Staph monotherapy)\n'+
-'100\tStaphylococcus lugdunensis\tTetracycline\n'+
+'100\tStaphylococcus lugdunensis\tDoxycycline\n'+
 '100\tStaphylococcus lugdunensis\tTrimethoprim\n'+
 '100\tStaphylococcus lugdunensis\tVancomycin\n'+
 '21\tStreptococcus Group A,B,C,G\tNumber Tested\n'+
@@ -1339,7 +1339,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '95\tStreptococcus pneumoniae\tClindamycin\n'+
 '68\tStreptococcus pneumoniae\tErythromycin\n'+
 '100\tStreptococcus pneumoniae\tLinezolid\n'+
-'74\tStreptococcus pneumoniae\tTetracycline\n'+
+'74\tStreptococcus pneumoniae\tDoxycycline\n'+
 '89\tStreptococcus pneumoniae\tTrimethoprim\n'+
 '100\tStreptococcus pneumoniae\tVancomycin\n'+
 '11\tAcinetobacter\tNumber Tested\n'+
@@ -1565,7 +1565,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (All Units) 2016"] = ''+
 '88\tStenotrophomonas maltophilia\tTrimethoprim\n'+
 '';
 
-SENSITIVITY_DATA_PER_SOURCE["Sanford Guide 2010"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2010 Sanford Guide"] = ''+
 	'90\tAcinetobacter\tAmikacin\n'+
 	'0\tAcinetobacter\tAmoxicillin-Clavulanate\n'+
 	'90\tAcinetobacter\tAmpicillin-Sulbactam\n'+
@@ -4187,7 +4187,7 @@ SENSITIVITY_DATA_PER_SOURCE["Sanford Guide 2010"] = ''+
 	'0\tZygomycetes (Absidia, Mucor, Rhizopus)\tVoriconazole'+
 	'';
 
-SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2011"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2011 Stanford (SUH)"] = ''+
     '322\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
     '107\tStreptococcus viridans Group\tNumber Tested\n'+
     '85\tStreptococcus pneumoniae\tNumber Tested\n'+
@@ -4619,7 +4619,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2011"] = ''+
     '4\tCandida krusei\tNumber Tested\n'+
     '23\tCandida (other)\tNumber Tested\n'+
     '';
-SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ED) 2011"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2011 Palo Alto VA (ED)"] = ''+
     '12\tEnterococcus faecalis\tNumber Tested\n'+
     '100\tEnterococcus faecalis\tAmpicillin/Amoxicillin\n'+
     '100\tEnterococcus faecalis\tPenicillin G\n'+
@@ -4846,7 +4846,7 @@ SENSITIVITY_DATA_PER_SOURCE["Palo Alto VA (ED) 2011"] = ''+
     '90\tStenotrophomonas maltophilia\tTMP-SMX\n'+
     '';
 
-SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2012"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2012 Stanford (SUH)"] = ''+
     '210\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
     '100\tStreptococcus Group B (agalactiae)\tPenicillin G\n'+
     '100\tStreptococcus Group B (agalactiae)\tAmpicillin/Amoxicillin\n'+
@@ -5272,7 +5272,7 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2012"] = ''+
 
     '';
 
-SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2015"] = ''+
+SENSITIVITY_DATA_PER_SOURCE["2015 Stanford (SUH)"] = ''+
     '218\tStreptococcus Group B (agalactiae)\tNumber Tested\n'+
     '100\tStreptococcus Group B (agalactiae)\tPenicillin G\n'+
     '100\tStreptococcus Group B (agalactiae)\tAmpicillin/Amoxicillin\n'+
@@ -5710,5 +5710,5 @@ SENSITIVITY_DATA_PER_SOURCE["Stanford (SUH) 2015"] = ''+
     '95\tCampylobacter\tErythromycin\n'+
     '';
 
-DEFAULT_SOURCE = "Stanford (SUH) 2015";
+DEFAULT_SOURCE = "2015 Stanford (SUH)";
 SENSITIVITY_DATA_PER_SOURCE["default"] = SENSITIVITY_DATA_PER_SOURCE[DEFAULT_SOURCE];
